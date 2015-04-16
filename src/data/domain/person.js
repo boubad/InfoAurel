@@ -222,6 +222,7 @@ export class Person extends BaseItem {
         }
     }
     //
+    @computedFrom('lastname','firstname')
     get fullname() {
         var s = '';
         if (this.lastname !== null) {
@@ -284,6 +285,7 @@ export class Person extends BaseItem {
         oMap.semestreids = this.semestreids;
         oMap.groupeids = this.groupeids;
     } // to_insert_map
+     @computedFrom('username','lastname','firstname')
     get is_storeable() {
         return super.is_storeable && (this.username !== null) && (this.firstname !==
             null) &&

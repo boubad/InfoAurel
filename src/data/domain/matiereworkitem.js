@@ -18,6 +18,7 @@ export class MatiereWorkItem extends DepWorkItem {
     }// oMap
   }// constructor
   //
+  @computedFrom('uniteid','matiereid')
   get is_storeable() {
     return super.is_storeable && (this.uniteid !== null) &&
        (this.matiereid !== null);

@@ -29,6 +29,7 @@ export class BaseItem {
     get base_prefix() {
         return null;
     }
+    @computedFrom('collection_name')
     get index_name() {
         return (this.collection_name !== null) ?
             this.collection_name + '/by_id' : null;
@@ -60,6 +61,7 @@ export class BaseItem {
     get collection_name() {
         return null;
     }
+    @computedFrom('type','collection_name')
     get is_storeable() {
         return (this.type !== null) && (this.collection_name !== null);
     }

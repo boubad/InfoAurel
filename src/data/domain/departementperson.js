@@ -23,6 +23,7 @@ export class DepartementPerson extends DepartementChildItem {
             }
         } // oMap
     } // constructor
+    @computedFrom('lastname','firstname')
     get fullname() {
         var s = '';
         if (this.lastname !== null) {
@@ -34,6 +35,7 @@ export class DepartementPerson extends DepartementChildItem {
         s = s.trim();
         return (s.length > 0) ? s : null;
     } // fullname
+    @computedFrom('personid','lastname','firstname')
     get is_storeable() {
         return super.is_storeable && (this.personid !== null) &&
             (this.lastname !== null) && (this.firstname !== null);

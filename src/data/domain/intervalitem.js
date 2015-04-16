@@ -35,7 +35,8 @@ export class IntervalItem extends DepartementSigleNameItem {
     set endDate(d) {
         this._end = this.check_date(d);
     }
-    get is_storeable(): boolean {
+    @computedFrom('startDate','endDate')
+    get is_storeable() {
         return super.is_storeable &&
             (this.startDate !== null) && (this.endDate !== null) &&
             (this.startDate.getTime() <= this.endDate.getTime());

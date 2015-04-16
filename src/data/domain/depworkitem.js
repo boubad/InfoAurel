@@ -65,6 +65,7 @@ export class DepWorkItem extends DepartementPerson {
     this._end = this.check_date(d);
   }
   //
+  @computedFrom('anneeid','semestreid','groupeid')
   get is_storeable() {
     return super.is_storeable && (this.anneeid !== null) &&
        (this.semestreid !== null) &&

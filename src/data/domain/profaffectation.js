@@ -22,6 +22,7 @@ export class ProfAffectation extends MatiereWorkItem {
     '-' + this.enseignantid + '-' + this.groupeid + '-' + s;
   }// create_id
   //
+  @computedFrom('enseignantid')
   get is_storeable() {
     let bRet = super.is_storeable && (this.enseignantid !== null);
     if (!bRet){

@@ -22,6 +22,7 @@ export class EtudAffectation extends DepWorkItem {
     '-' + this.etudiantid + '-' + this.groupeid + '-' + s;
   }// create_id
   //
+  @computedFrom('etudiantid')
   get is_storeable() {
     let bRet = super.is_storeable && (this.etudiantid !== null);
     if (!bRet){

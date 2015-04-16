@@ -22,10 +22,9 @@ export class Semestre extends IntervalItem {
         let s = (this.startDate.toISOString()).substr(0, 10);
         return this.base_prefix + '-' + this.anneeid + s;
     } // create_id
+    @computedFrom('anneeid')
     get is_storeable() {
-        return super.is_storeable && (this.anneeid !== null) &&
-            (this.startDate !== null) && (this.endDate !== null) &&
-            (this.startDate.getTime() <= this.endDate.getTime());
+        return super.is_storeable && (this.anneeid !== null);
     }
     to_map(oMap) {
         super.to_map(oMap);

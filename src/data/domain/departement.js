@@ -17,6 +17,7 @@ export class Departement extends SigleNameItem {
     get base_prefix() {
         return 'DEP';
     }
+    @computedFrom('collection_name')
     get index_name() {
         return this.collection_name + '/by_sigle';
     }

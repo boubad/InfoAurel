@@ -60,6 +60,7 @@ export class Matiere extends DepartementSigleNameItem {
             this._coef = null;
         }
     }
+    @computedFrom('uniteid')
     get is_storeable() {
         return super.is_storeable && (this.uniteid !== null);
     }

@@ -84,6 +84,7 @@ export class GroupeEvent extends MatiereWorkItem {
     }
   }
   //
+  @computedFrom('profaffectationid','enseignantid','date','genre','name')
   get is_storeable() {
   	  return super.is_storeable && (this.profaffectationid !== null) &&
   	  (this.enseignantid !== null) && (this.date !== null) &&
