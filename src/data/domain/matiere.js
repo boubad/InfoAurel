@@ -1,4 +1,5 @@
 //matiere.js
+import {computedFrom} from 'aurelia-framework';
 //
 import {
     DepartementSigleNameItem

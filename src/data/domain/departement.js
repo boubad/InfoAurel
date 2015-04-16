@@ -3,6 +3,7 @@ import {
     SigleNameItem
 }
 from "./siglenameitem";
+import {computedFrom} from 'aurelia-framework';
 //
 export class Departement extends SigleNameItem {
     constructor(oMap) {

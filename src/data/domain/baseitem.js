@@ -1,4 +1,5 @@
 //baseitem.js
+import {computedFrom} from 'aurelia-framework';
 //
 export class BaseItem {
     //

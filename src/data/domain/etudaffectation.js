@@ -1,4 +1,5 @@
 //etudaffectation.js
+import {computedFrom} from 'aurelia-framework';
 //
 import {DepWorkItem} from './depworkitem';
 //

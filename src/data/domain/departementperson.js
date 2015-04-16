@@ -1,4 +1,5 @@
 //departementperson.js
+import {computedFrom} from 'aurelia-framework';
 //
 import {
     DepartementChildItem

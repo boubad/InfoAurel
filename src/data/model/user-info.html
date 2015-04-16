@@ -1,0 +1,11 @@
+<template>
+	<div if.bind="isConnected" class="container row">
+		<div class="col-md-1">$(fullname)</div>
+		<div if.bind="hasPhoto" class="col-md-1">
+			<img src.bind="photoUrl" height="48" />
+		</div>
+		<div class="col-md-1">
+			<a href="#" click.delegate="disconnect()">Déconnecter</a>
+		</div>
+	</div>
+</template>

@@ -1,4 +1,5 @@
 //depworkitem.js
+import {computedFrom} from 'aurelia-framework';
 //
 import {DepartementPerson} from './departementperson';
 //

@@ -1,4 +1,5 @@
 //semestre.js
+import {computedFrom} from 'aurelia-framework';
 import {
     IntervalItem
 }

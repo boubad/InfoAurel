@@ -1,4 +1,5 @@
 //etudevent.js
+import {computedFrom} from 'aurelia-framework';
 import {MatiereWorkItem} from './matiereworkitem';
 //
 export class EtudEvent extends MatiereWorkItem {

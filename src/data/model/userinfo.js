@@ -1,5 +1,6 @@
 //userinfo.js
 //
+import {inject, computedFrom} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 //
 import {SessionObjectStore} from '../services/sessionstore';
@@ -22,7 +23,7 @@ export class UserInfo extends SessionObjectStore {
           if (type !== null){
             let val = (payload.value !== undefined) ? payload.value : null;
             if (type == 'person'){
-              self.person = val;
+                self.person = val;   
             } else if (type == 'departementid'){
               self.departementid = val;
             }else if (type == 'anneeid'){
@@ -132,6 +133,12 @@ export class UserInfo extends SessionObjectStore {
   set personrev(s) {
     this.store_value('personrev',s);
   }
+  get password(){
+    return this.get_value('password');
+  }
+  set password(s){
+    this.store_value('password',s);
+  }
   //
   get person() {
     if (this._person !== null){
@@ -157,7 +164,9 @@ export class UserInfo extends SessionObjectStore {
     return this._person;
   }
   set person(pPers) {
-    let p = (pPers !== undefined) ? pPers : null;
+    if (!this.busy){
+      this.busy = true;
+      let p = (pPers !== undefined) ? pPers : null;
     let old = this.photoUrl;
     if (old !== null){
       window.URL.revokeObjectURL(old);
@@ -165,6 +174,7 @@ export class UserInfo extends SessionObjectStore {
     this.photoUrl = null;
     this._person = p;
     this.personid = null;
+    this.password = null;
     this.personrev = null;
     this.departementid = null;
     this.anneeid = null;
@@ -188,6 +198,7 @@ export class UserInfo extends SessionObjectStore {
       this.fullname = p.fullname;
       this.email = p.email;
       this.phone = p.phone;
+      this.password = p.password;
       this.description = p.description;
       if ((docid !== null) && (avatarid !== null)){
          var self = this;
@@ -195,13 +206,25 @@ export class UserInfo extends SessionObjectStore {
             if ((blob !== undefined) && (blob !== null)){
               let x = window.URL.createObjectURL(blob);
               self.photoUrl = x;
+              self.eventAggregator.publish('personChanged',{name:p.fullname,url:x});
             }
          });
       }// docid
-    }// pPers
+    } else {
+      this.eventAggregator.publish('personChanged',{name:null,url:null});
+    }
+    }// notBusy
+    
+  }
+  disconnect(){
+    this.person = null;
   }
   @computedFrom('photoUrl')
   get hasPhoto() {
     return (this.photoUrl !== null);
+  }
+  @computedFrom('personid')
+  get isConnected(){
+    return (this.personid !== null)  && (this.personrev !== null);
   }
 }// class UserInfo

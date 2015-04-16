@@ -1,4 +1,5 @@
 //groupeevent.js
+import {computedFrom} from 'aurelia-framework';
 import {MatiereWorkItem} from './matiereworkitem';
 //
 export class GroupeEvent extends MatiereWorkItem {

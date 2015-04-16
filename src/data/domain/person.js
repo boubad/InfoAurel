@@ -1,4 +1,5 @@
 // person.js
+import {computedFrom} from 'aurelia-framework';
 //
 import {
     BaseItem

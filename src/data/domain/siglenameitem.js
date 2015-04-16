@@ -1,4 +1,5 @@
 // siglenameitem.js
+import {computedFrom} from 'aurelia-framework';
 //
 import {
     BaseItem
@@ -33,7 +34,7 @@ export class SigleNameItem extends BaseItem {
         }
         return s;
     } // create_id
-    @computedFrom('sigle')
+   // @computedFrom('sigle')
     is_storeable(): boolean {
         return super.is_storeable && (this.sigle !== null);
     }
