@@ -21,7 +21,7 @@ export class IntervalItem extends DepartementSigleNameItem {
     create_id() {
         let s = (this.startDate.toISOString()).substr(0, 10);
         return this.base_prefix + '-' +
-            this.departementid + s + '-' + this.sigle.toUpperCase();
+            this.departementid + '-' + s;
     } // create_id
     get startDate() {
         return this._start;
@@ -35,7 +35,7 @@ export class IntervalItem extends DepartementSigleNameItem {
     set endDate(d) {
         this._end = this.check_date(d);
     }
-    public get is_storeable(): boolean {
+    get is_storeable(): boolean {
         return super.is_storeable &&
             (this.startDate !== null) && (this.endDate !== null) &&
             (this.startDate.getTime() <= this.endDate.getTime());

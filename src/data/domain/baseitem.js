@@ -90,7 +90,7 @@ export class BaseItem {
         this.to_map(oMap);
         return JSON.stringify(oMap);
     } // toString
-    public sort_func(p1, p2) {
+    sort_func(p1, p2) {
         let vRet = -1;
         if ((p1 !== undefined) && (p2 !== undefined) && (p1 !== null) && (p2 !==
             null)) {

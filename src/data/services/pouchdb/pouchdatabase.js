@@ -22,11 +22,11 @@ export class PouchDatabase {
     } // constructor
     get db() {
         let self = this;
-        return new Promise((resolve, reject) = > {
+        return new Promise((resolve, reject) => {
             if (self._db !== null) {
                 resolve(self._db);
             } else {
-                let xdb = new PouchDB(self.url, (err, ydb) = > {
+                let xdb = new PouchDB(self.url, (err, ydb) => {
                     if ((err !== undefined) && (err !== null)) {
                         reject(new Error(err.reason));
                     } else {
@@ -39,13 +39,13 @@ export class PouchDatabase {
     } // db
     maintains_doc(ddoc) {
         let d: PouchDB = null;
-        return this.db.then((xdb) = > {
+        return this.db.then((xdb) => {
             d = xdb;
             return d.get(ddoc._id);
-        }).then((r) = > {
+        }).then((r) => {
             ddoc._rev = r._rev;
             return d.put(ddoc);
-        }, (e) = > {
+        }, (e) => {
             if (e.status == 404) {
                 return d.put(ddoc);
             } else {
@@ -55,11 +55,11 @@ export class PouchDatabase {
     } // maintains_doc
     check_admin() {
         let self = this;
-        return this.db.then((xdb) = > {
+        return this.db.then((xdb) => {
             return xdb.get('PER-admin');
-        }).then((p) = > {
+        }).then((p) => {
             return p;
-        }, (e) = > {
+        }, (e) => {
             if (e.status == 404) {
                 let cc = new MyCrypto();
                 let oMap = {
@@ -72,7 +72,7 @@ export class PouchDatabase {
                         'reader'
                     ]
                 };
-                return self.maintains_doc(oMap).then((z) = > {
+                return self.maintains_doc(oMap).then((z) => {
                     return z;
                 });
             } else {

@@ -4,7 +4,7 @@ import {
 }
 from './intervalitem';
 //
-extends class Semestre extends IntervalItem {
+export class Semestre extends IntervalItem {
     //
     constructor(oMap) {
         super(oMap);

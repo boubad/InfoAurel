@@ -21,4 +21,3 @@ export class Departement extends SigleNameItem {
         return this.collection_name + '/by_sigle';
     }
 } // class Departement
-export = Departement;
