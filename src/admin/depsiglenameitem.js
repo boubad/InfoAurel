@@ -26,21 +26,22 @@ export class DepSigleNameBase extends SigleNameBase {
 			this.dataService.get_item_by_id(id).then((dep) =>{
 				self.departement = ((dep !== undefined) && (dep !== null)) ? dep : null;
 				self.update_title();
-				self.userInfo.departementId = self.departementid;
+				self.userInfo.departementid = self.departementid;
 			},(err)=>{
 				self.departement = null;
-				self.userInfo.departementId = self.departementid;
+				self.userInfo.departementid = null;
 				self.update_title();
 			});
 		} else {
 			this.departement = null;
-			self.userInfo.departementId = self.departementid;
+			self.userInfo.departementid = null;
 			this.update_title();
 		}
 	}// departementid
 	create_item(){
 		let p = this.dataService.create_item({type:this.modelItem.type});
 		p.departementid = this.departementid;
+		p.anneeid = this.anneeid;
 		return p;
 	}// create_item
 	@computedFrom('departement')

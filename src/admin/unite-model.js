@@ -19,6 +19,7 @@ export class UnitesClass extends DepSigleNameBase {
 		this.globalValidationConfig = validationConfig;
 		this.globalValidationConfig.useLocale(currentLocale);
 		this.validation.on(this)
+			.ensure('departementid').isNotEmpty()
 			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31);
 		this.base_title = 'Unités';
 	}// constructor
