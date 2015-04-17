@@ -1,14 +1,12 @@
 //userinfo.js
 //
-import {customElement, bindable} from 'aurelia-framework';
+import {inject, customElement, bindable} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 //
 @customElement('user-info')
 @inject(EventAggregator)
 export class UserInfoClass {
-	@bindable isConnected;
 	@bindable fullname;
-	@bindable hasPhoto;
 	@bindable photoUrl;
 	//
 	constructor(eventAggregator){
@@ -19,10 +17,21 @@ export class UserInfoClass {
 		this.hasPhoto = false;
 		this.photoUrl = null;
 		this.eventAggregator.subscribe('personChanged',(msg) =>{
-			self.isConnected = (msg.name !== null) && (msg.name.length > 0);
-			self.fullname = msg.name;
-			self.hasPhoto = (msg.url !== null);
-			self.photoUrl = msg.url;
+			let name = null;
+			let url = null;
+			if ((msg !== undefined) && (msg !== null)){
+				if ((msg.data !== undefined) && (msg.data !== null)){
+					let p = msg.data;
+					name = p.fullname;
+				}
+				if (msg.url !== undefined){
+					url = msg.url;
+				}
+			}
+			self.isConnected = (name !== null);
+			self.fullname = name;
+			self.hasPhoto = (url !== null);
+			self.photoUrl = url;
 		});
 	}// constructor
 	disconnect(){

@@ -25,7 +25,7 @@ export class DepartementSigleNameItem extends DepartementChildItem {
         return this.base_prefix + '-' + this.departementid + '-' +
             this.sigle.toUpperCase();
     } // create_id
-     @computedFrom('sigle')
+     @computedFrom('super.is_storeable','sigle')
     get is_storeable() {
         return super.is_storeable && (this.sigle !== null);
     }

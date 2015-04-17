@@ -34,8 +34,8 @@ export class SigleNameItem extends BaseItem {
         }
         return s;
     } // create_id
-   // @computedFrom('sigle')
-    is_storeable(): boolean {
+    @computedFrom('super.is_storeable','sigle')
+    get is_storeable() {
         return super.is_storeable && (this.sigle !== null);
     }
     to_map(oMap) {

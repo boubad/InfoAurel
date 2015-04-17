@@ -23,7 +23,7 @@ export class UserInfo extends SessionObjectStore {
           if (type !== null){
             let val = (payload.value !== undefined) ? payload.value : null;
             if (type == 'person'){
-                self.person = val;   
+                self.person = val;
             } else if (type == 'departementid'){
               self.departementid = val;
             }else if (type == 'anneeid'){
@@ -102,6 +102,7 @@ export class UserInfo extends SessionObjectStore {
   }
   set uniteid(s){
     this.store_value('uniteid',s);
+    this.matiereid = null;
   }
   get semestreid() {
     return this.get_value('semestreid');
@@ -114,12 +115,16 @@ export class UserInfo extends SessionObjectStore {
   }
   set anneeid(s){
     this.store_value('anneeid',s);
+    this.semestreid = null;
   }
   get departementid() {
     return this.get_value('departementid');
   }
   set departementid(s){
     this.store_value('departementid',s);
+    this.anneeid = null;
+    this.groupeid = null;
+    this.uniteid = null;
   }
   get personid() {
     return this.get_value('personid');
@@ -159,7 +164,7 @@ export class UserInfo extends SessionObjectStore {
        this._person = new EtudiantPerson(oMap);
     }else if (t == 'profperson') {
        this._person = new ProfPerson(oMap);
-    }  
+    }
 
     return this._person;
   }
@@ -206,15 +211,15 @@ export class UserInfo extends SessionObjectStore {
             if ((blob !== undefined) && (blob !== null)){
               let x = window.URL.createObjectURL(blob);
               self.photoUrl = x;
-              self.eventAggregator.publish('personChanged',{name:p.fullname,url:x});
+              self.eventAggregator.publish('personChanged',{data:p,url:x});
             }
          });
       }// docid
     } else {
-      this.eventAggregator.publish('personChanged',{name:null,url:null});
+      this.eventAggregator.publish('personChanged',{data:null,url:null});
     }
     }// notBusy
-    
+
   }
   disconnect(){
     this.person = null;

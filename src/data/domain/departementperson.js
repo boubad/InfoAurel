@@ -36,7 +36,7 @@ export class DepartementPerson extends DepartementChildItem {
         s = s.trim();
         return (s.length > 0) ? s : null;
     } // fullname
-    @computedFrom('personid','lastname','firstname')
+    @computedFrom('super.is_storeable','personid','lastname','firstname')
     get is_storeable() {
         return super.is_storeable && (this.personid !== null) &&
             (this.lastname !== null) && (this.firstname !== null);
