@@ -12,11 +12,20 @@ export class App {
     this.router = router;
     this.userInfo = userInfo;
     this.router.configure(config => {
-      config.title = 'Aurelia';
+      config.title = 'InfoApp';
       config.map([
         { route: ['','welcome'],  moduleId: './welcome',      nav: true, title:'Welcome' },
-        { route: 'flickr',        moduleId: './flickr',       nav: true },
-        { route: 'child-router',  moduleId: './child-router', nav: true, title:'Child Router' }
+        { route: 'admin-router',  moduleId: './admin-router', nav: true, title:'Administration' },
+        { route: 'affetuds',  moduleId: './welcome', nav: false, title:'Affectation étudiants' },
+        { route: 'affprofs',  moduleId: './welcome', nav: false, title:'Affectations enseignants' },
+        { route: 'etudiants',  moduleId: './welcome', nav: false, title:'Etudiants' },
+        { route: 'semestre',  moduleId: './welcome', nav: false, title:'Semestres' },
+        { route: 'annees',  moduleId: './welcome', nav: false, title:'Années' },
+        { route: 'enseignants',  moduleId: './welcome', nav: false, title:'Enseignants' },
+        { route: 'groupes',  moduleId: './welcome', nav: false, title:'Groupes' },
+        { route: 'matieres',  moduleId: './welcome', nav: false, title:'Matières' },
+        { route: 'unites',  moduleId: './welcome', nav: false, title:'Unités' },
+        { route: 'departements',  moduleId: './welcome', nav: false, title:'Départements' }
       ]);
     });
   }

@@ -11,7 +11,6 @@ import {DepSigleNameBase} from './depsiglenameitem';
 //
 let currentLocale = 'fr-FR';
 //
-@customElement('unite-model')
 @inject(EventAggregator,DataService,UserInfo,Validation,ValidationConfig)
 export class UnitesClass extends DepSigleNameBase {
 	constructor(eventAggregator,dataService,userInfo,validation,validationConfig){
@@ -21,7 +20,7 @@ export class UnitesClass extends DepSigleNameBase {
 		this.globalValidationConfig.useLocale(currentLocale);
 		this.validation.on(this)
 			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31);
-		this.base_title = 'Unités';	
+		this.base_title = 'Unités';
 	}// constructor
 
 	post_change_item(){

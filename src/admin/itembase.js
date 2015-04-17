@@ -2,7 +2,7 @@
 import {computedFrom} from 'aurelia-framework';
 import {Promise} from 'bluebird';
 //
-import {BaseElement} from './baseelement';
+import {BaseElement} from '../resources/baseelement';
 //
 export class ItemBase extends BaseElement {
 	constructor(eventAggregator,dataService,userInfo,model){
@@ -22,6 +22,11 @@ export class ItemBase extends BaseElement {
 		this.canNextPage = false;
 		this.canPrevPage = false;
 	}// constructor
+	activate() {
+    if (this.elements.length < 1){
+			this.refreshAll();
+		}
+  }
 	create_item(){
 		return this.dataService.create_item({type:this.modelItem.type});
 	}// create_item
@@ -182,7 +187,7 @@ export class ItemBase extends BaseElement {
     this.clear_error();
     let oldid = (this.current_item !== null) ? this.current_item.id : null;
     var self = this;
-    return this.dataService.find_elements_range(model.index_name,startKey, 
+    return this.dataService.find_elements_range(model.index_name,startKey,
     	endKey, skip,limit,
     descending,bIncludeEnd,bDoc,bAttach).then((rr)=>{
       return self.retrieve_avatars(rr);

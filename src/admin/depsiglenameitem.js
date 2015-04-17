@@ -1,18 +1,20 @@
 //depsiglenameitem.js
-import {computedFrom, bindable} from 'aurelia-framework';
+import {computedFrom} from 'aurelia-framework';
 //
 import {SigleNameBase} from './siglenameitem';
 //
 export class DepSigleNameBase extends SigleNameBase {
-	//
-	@bindable parentid;
-	//
 	constructor(eventAggregator,dataService,userInfo,model){
 		super(eventAggregator,dataService,userInfo,model);
 		this.parentid = null;
 		this.departement = null;
 		this.base_title = null;
 	}// constructor
+	activate(){
+		let info = this.userInfo;
+		let id = ((info !== undefined) && (info !== null)) ? info.departementid : null;
+		this.departementid = id;
+	}// activate
 	@computedFrom('departement')
 	get departementid(){
 		return (this.departement !== null) ? this.departement.id : null;

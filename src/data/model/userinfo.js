@@ -23,7 +23,7 @@ export class UserInfo extends SessionObjectStore {
           if (type !== null){
             let val = (payload.value !== undefined) ? payload.value : null;
             if (type == 'person'){
-                self.person = val;   
+                self.person = val;
             } else if (type == 'departementid'){
               self.departementid = val;
             }else if (type == 'anneeid'){
@@ -164,7 +164,7 @@ export class UserInfo extends SessionObjectStore {
        this._person = new EtudiantPerson(oMap);
     }else if (t == 'profperson') {
        this._person = new ProfPerson(oMap);
-    }  
+    }
 
     return this._person;
   }
@@ -219,7 +219,7 @@ export class UserInfo extends SessionObjectStore {
       this.eventAggregator.publish('personChanged',{data:null,url:null});
     }
     }// notBusy
-    
+
   }
   disconnect(){
     this.person = null;

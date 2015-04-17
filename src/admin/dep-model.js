@@ -1,6 +1,6 @@
 //dep-model.js
 //
-import {inject, customElement} from 'aurelia-framework';
+import {inject} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Validation,ValidationConfig} from 'aurelia-validation';
 //
@@ -11,7 +11,6 @@ import {SigleNameBase} from './siglenameitem';
 //
 let currentLocale = 'fr-FR';
 //
-@customElement('dep-model')
 @inject(EventAggregator,DataService,UserInfo,Validation,ValidationConfig)
 export class DepartementsClass extends SigleNameBase {
 	constructor(eventAggregator,dataService,userInfo,validation,validationConfig){
@@ -21,7 +20,7 @@ export class DepartementsClass extends SigleNameBase {
 		this.globalValidationConfig.useLocale(currentLocale);
 		this.validation.on(this)
 			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31);
-		this.title = 'Départements';	
+		this.title = 'Départements';
 	}// constructor
 	create_start_key(){
 		return 'DEP-';

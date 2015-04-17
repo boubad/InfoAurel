@@ -11,7 +11,6 @@ import {DepSigleNameBase} from './depsiglenameitem';
 //
 let currentLocale = 'fr-FR';
 //
-@customElement('groupe-model')
 @inject(EventAggregator,DataService,UserInfo,Validation,ValidationConfig)
 export class GroupesClass extends DepSigleNameBase {
 	constructor(eventAggregator,dataService,userInfo,validation,validationConfig){
@@ -21,7 +20,7 @@ export class GroupesClass extends DepSigleNameBase {
 		this.globalValidationConfig.useLocale(currentLocale);
 		this.validation.on(this)
 			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31);
-		this.base_title = 'Groupes';	
+		this.base_title = 'Groupes';
 	}// constructor
 
 	post_change_item(){
