@@ -16,7 +16,7 @@ export class DepartementChildItem extends BaseItem {
             }
         } // oMap
     } // constructor
-    @computedFrom('departementid')
+    @computedFrom('super.is_storeable','departementid')
     get is_storeable() {
         return super.is_storeable && (this.departementid !== null);
     }

@@ -66,11 +66,22 @@ export class DepWorkItem extends DepartementPerson {
     this._end = this.check_date(d);
   }
   //
-  @computedFrom('anneeid','semestreid','groupeid')
+  @computedFrom('super.is_storeable','anneeid','semestreid','groupeid','startDate','endDate')
   get is_storeable() {
-    return super.is_storeable && (this.anneeid !== null) &&
+    let bRet = super.is_storeable && (this.anneeid !== null) &&
        (this.semestreid !== null) &&
       (this.groupeid !== null) && (this.personid !== null);
+      if (!bRet){
+        return false;
+      }
+      if ((this.startDate !== null) && (this.endDate !== null)) {
+      if (this.startDate.getTime() > this.endDate.getTime()) {
+        return false;
+      }
+    } else if ((this.startDate !== null) || (this.endDate != null)) {
+      return false;
+    }
+    return true;
   }
   to_map(oMap)  {
     super.to_map(oMap);

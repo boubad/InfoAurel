@@ -1,14 +1,12 @@
 //userinfo.js
 //
-import {customElement, bindable} from 'aurelia-framework';
+import {inject, customElement, bindable} from 'aurelia-framework';
 import {EventAggregator} from 'aurelia-event-aggregator';
 //
 @customElement('user-info')
 @inject(EventAggregator)
 export class UserInfoClass {
-	@bindable isConnected;
 	@bindable fullname;
-	@bindable hasPhoto;
 	@bindable photoUrl;
 	//
 	constructor(eventAggregator){

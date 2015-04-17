@@ -14,6 +14,7 @@ System.config({
     "aurelia-framework": "github:aurelia/framework@0.10.0",
     "aurelia-http-client": "github:aurelia/http-client@0.7.0",
     "aurelia-router": "github:aurelia/router@0.7.0",
+    "aurelia-validation": "github:aurelia/validation@0.2.2",
     "bluebird": "npm:bluebird@2.9.24",
     "bootstrap": "github:twbs/bootstrap@3.3.4",
     "css": "github:systemjs/plugin-css@0.1.9",
@@ -23,7 +24,7 @@ System.config({
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.6.0",
       "aurelia-metadata": "github:aurelia/metadata@0.4.0",
       "aurelia-task-queue": "github:aurelia/task-queue@0.3.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/bootstrapper@0.11.0": {
       "aurelia-event-aggregator": "github:aurelia/event-aggregator@0.3.0",
@@ -33,16 +34,16 @@ System.config({
       "aurelia-loader-default": "github:aurelia/loader-default@0.6.0",
       "aurelia-logging-console": "github:aurelia/logging-console@0.3.0",
       "aurelia-router": "github:aurelia/router@0.7.0",
-      "aurelia-templating": "github:aurelia/templating@0.10.0",
+      "aurelia-templating": "github:aurelia/templating@0.10.3",
       "aurelia-templating-binding": "github:aurelia/templating-binding@0.10.0",
       "aurelia-templating-resources": "github:aurelia/templating-resources@0.10.0",
       "aurelia-templating-router": "github:aurelia/templating-router@0.11.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/dependency-injection@0.6.0": {
       "aurelia-logging": "github:aurelia/logging@0.3.0",
       "aurelia-metadata": "github:aurelia/metadata@0.4.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/framework@0.10.0": {
       "aurelia-binding": "github:aurelia/binding@0.5.0",
@@ -52,16 +53,16 @@ System.config({
       "aurelia-metadata": "github:aurelia/metadata@0.4.0",
       "aurelia-path": "github:aurelia/path@0.5.0",
       "aurelia-task-queue": "github:aurelia/task-queue@0.3.0",
-      "aurelia-templating": "github:aurelia/templating@0.10.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "aurelia-templating": "github:aurelia/templating@0.10.3",
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/history-browser@0.3.0": {
       "aurelia-history": "github:aurelia/history@0.3.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/http-client@0.7.0": {
       "aurelia-path": "github:aurelia/path@0.5.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/loader-default@0.6.0": {
       "aurelia-loader": "github:aurelia/loader@0.5.0",
@@ -70,14 +71,14 @@ System.config({
     "github:aurelia/loader@0.5.0": {
       "aurelia-html-template-element": "github:aurelia/html-template-element@0.2.0",
       "aurelia-path": "github:aurelia/path@0.5.0",
-      "core-js": "github:zloirock/core-js@0.8.1",
+      "core-js": "github:zloirock/core-js@0.8.3",
       "webcomponentsjs": "github:webcomponents/webcomponentsjs@0.5.5"
     },
     "github:aurelia/metadata@0.4.0": {
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/route-recognizer@0.3.0": {
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/router@0.7.0": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.6.0",
@@ -85,28 +86,28 @@ System.config({
       "aurelia-history": "github:aurelia/history@0.3.0",
       "aurelia-path": "github:aurelia/path@0.5.0",
       "aurelia-route-recognizer": "github:aurelia/route-recognizer@0.3.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/templating-binding@0.10.0": {
       "aurelia-binding": "github:aurelia/binding@0.5.0",
       "aurelia-logging": "github:aurelia/logging@0.3.0",
-      "aurelia-templating": "github:aurelia/templating@0.10.0"
+      "aurelia-templating": "github:aurelia/templating@0.10.3"
     },
     "github:aurelia/templating-resources@0.10.0": {
       "aurelia-binding": "github:aurelia/binding@0.5.0",
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.6.0",
       "aurelia-logging": "github:aurelia/logging@0.3.0",
-      "aurelia-templating": "github:aurelia/templating@0.10.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "aurelia-templating": "github:aurelia/templating@0.10.3",
+      "core-js": "github:zloirock/core-js@0.8.3"
     },
     "github:aurelia/templating-router@0.11.0": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.6.0",
       "aurelia-metadata": "github:aurelia/metadata@0.4.0",
       "aurelia-path": "github:aurelia/path@0.5.0",
       "aurelia-router": "github:aurelia/router@0.7.0",
-      "aurelia-templating": "github:aurelia/templating@0.10.0"
+      "aurelia-templating": "github:aurelia/templating@0.10.3"
     },
-    "github:aurelia/templating@0.10.0": {
+    "github:aurelia/templating@0.10.3": {
       "aurelia-binding": "github:aurelia/binding@0.5.0",
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.6.0",
       "aurelia-html-template-element": "github:aurelia/html-template-element@0.2.0",
@@ -115,7 +116,12 @@ System.config({
       "aurelia-metadata": "github:aurelia/metadata@0.4.0",
       "aurelia-path": "github:aurelia/path@0.5.0",
       "aurelia-task-queue": "github:aurelia/task-queue@0.3.0",
-      "core-js": "github:zloirock/core-js@0.8.1"
+      "core-js": "github:zloirock/core-js@0.8.3"
+    },
+    "github:aurelia/validation@0.2.2": {
+      "aurelia-binding": "github:aurelia/binding@0.5.0",
+      "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.6.0",
+      "aurelia-templating": "github:aurelia/templating@0.10.3"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"

@@ -23,20 +23,9 @@ export class ProfAffectation extends MatiereWorkItem {
     '-' + this.enseignantid + '-' + this.groupeid + '-' + s;
   }// create_id
   //
-  @computedFrom('enseignantid')
+  @computedFrom('super.is_storeable','enseignantid')
   get is_storeable() {
-    let bRet = super.is_storeable && (this.enseignantid !== null);
-    if (!bRet){
-      return false;
-    }
-    if ((this.startDate !== null) && (this.endDate !== null)) {
-      if (this.startDate.getTime() > this.endDate.getTime()) {
-        return false;
-      }
-    } else if ((this.startDate !== null) || (this.endDate != null)) {
-      return false;
-    }
-    return true;
+    return super.is_storeable && (this.enseignantid !== null);
   }
   to_map(oMap) {
     super.to_map(oMap);

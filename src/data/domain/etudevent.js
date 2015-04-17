@@ -48,7 +48,7 @@ export class EtudEvent extends MatiereWorkItem {
   	this._date = this.check_date(d);
   }
   //
-  @computedFrom('etudaffectationid','groupeeventid','etudiantid')
+  @computedFrom('super.is_storeable','etudaffectationid','groupeeventid','etudiantid')
   get is_storeable() {
   	  return super.is_storeable && (this.etudaffectationid !== null) &&
       (this.groupeeventid !== null) &&
