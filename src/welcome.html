@@ -1,20 +1,29 @@
 <template>
-  <!-- ==================== -->
-	<h2>Connexion</h2>
-	<h3 show.bind = "hasErrorMessage" class="text-danger">$(errorMessage)<h3>
-	<form role="form"  submit.delegate="connect()" if.bind="isNotConnected" validate.bind="validate">
-		<div class="form-group">
-			<label for="username">Identifiant</label>
-			<input id="username" type="text" class="form-control" value.bind="username"
-			placeholder="Identifiant utilisateur" />
-		</div>
-		<div class="form-group">
-			<label for="password">Mot de passe</label>
-			<input id="password" type="text" class="form-control" value.bind="password"
-			placeholder=">Mot de passe" />
-		</div>
-		<div class="btn-group">
-			<button type="button" class="btn btn-primary" disabled.bind="!validate.isValidating">Connecter</button>
-		</div>
-	</form>
+    <require from="./resources/user-info"></require>
+<!-- ==================== -->
+<h2>Connexion</h2>
+<h3 show.bind = "hasErrorMessage" class="text-danger">${errorMessage}<h3>
+    <div show.bind="isConnected">
+        <user-info />    
+    </div>
+<div class="row" show.bind="isNotConnected">
+	<div class="col-md-4" />
+    <div class="col-md-8">
+        <form role="form" if.bind="isNotConnected" validate.bind="validate">
+            <div class="form-group">
+                <label>Identifiant</label>
+                <input id="username" type="text" class="form-control" value.bind="username"
+                placeholder="Identifiant utilisateur" />
+            </div>
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input id="password" type="text" class="form-control" value.bind="password"
+                placeholder="Mot de passe" />
+            </div>
+            <div class="btn-group">
+                <button type="button" click.delegate="connect()" class="btn btn-primary">Connecter</button>
+            </div>
+        </form>
+    </div>
+    <div>
 </template>

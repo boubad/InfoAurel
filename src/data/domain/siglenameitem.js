@@ -43,6 +43,13 @@ export class SigleNameItem extends BaseItem {
         oMap.sigle = this.sigle;
         oMap.name = this.name;
     } // toInsertMap
+    toString() {
+        let sRet = this.name;
+        if (sRet === null){
+            sRet = this.sigle;
+        }
+       return sRet;
+    } // toString
     sort_func(p1, p2) {
         let vRet = -1;
         if ((p1 !== undefined) && (p2 !== undefined) && (p1 !== null) && (p2 !==

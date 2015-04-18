@@ -1,13 +1,17 @@
 //pouchdatabase.js
 //
+/*
 import {
     Promise
 }
 from 'bluebird';
+*/
+/*
 import {
     PouchDB
 }
 from 'pouchdb';
+*/
 import {
     MyCrypto
 }
@@ -21,7 +25,7 @@ export class PouchDatabase {
         this._db = null;
         this.url = ((name !== undefined) && (name !== null)) ?
             name : 'geninfo';
-        this.gen = new ItemGenerator();    
+        this.gen = new ItemGenerator();
     } // constructor
     get db() {
         let self = this;
@@ -70,6 +74,7 @@ export class PouchDatabase {
             if (e.status == 404) {
                 let cc = new MyCrypto();
                 let oMap = {
+                    type:'person',
                     _id: id,
                     username: username,
                     password: cc.md5(username),
@@ -94,6 +99,9 @@ export class PouchDatabase {
           return xdb.get(id);
         }
     }).then((doc) => {
+        if ((doc.type === undefined) && (doc._id == 'PER-admin')){
+          doc.type = 'person';
+        }
         return self.gen.create_item(doc);
       }, (err) => {
         if (err.status == 404) {
@@ -188,13 +196,14 @@ export class PouchDatabase {
         return xdb.removeAttachment(p._id,attachmentId,p._rev);
     });
   }// maintains_attachment
-  get_items_array(ids) {
+  get_items_array(ids,bAttachments) {
     let generator = this.gen;
+    let options = {keys:ids,include_doc:true};
+    if ((bAttachments !== undefined) && (bAttachments !== null) && (bAttachments == true)){
+        options.attachments = true;
+    }
     return this.db.then((xdb) => {
-      return xdb.allDocs({
-        keys: ids,
-        include_doc: true
-      }).then((rr) => {
+      return xdb.allDocs(options).then((rr) => {
           let oRet = [];
           if ((rr !== undefined) && (rr !== null)) {
             let data = rr.rows;
@@ -266,4 +275,32 @@ export class PouchDatabase {
       });
     });
   }//find_elements_range
+  find_all_elements(item,startKey,descending){
+    let endKey = startkey + '\uffff';
+    let options = {startkey:startKey,endkey:endKey};
+    if ((descending !== undefined) && (descending !== null)) {
+        options.descending = true;
+    }
+    let indexName = item.index_name;
+    return this.db.then((xdb) => {
+      return xdb.query(indexName, options).then((rr) => {
+        let oRet = [];
+        if ((rr !== undefined) && (rr !== null)) {
+          let data = rr.rows;
+          if ((data !== undefined) && (data !== null)) {
+            for (let r of data){
+                if ((r.value !== undefined) && (r.value !== null)) {
+                if ((r.error !== undefined) || (r.deleted !== undefined)) {
+                  continue;
+                }
+                var xx = new ElementDesc(r.value);
+                oRet.push(xx);
+              }
+            }// r
+          }// data
+        }// rr
+        return oRet;
+      });
+    });
+  }// find_all_items
 } // class PouchDatabase

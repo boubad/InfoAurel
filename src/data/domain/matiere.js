@@ -41,6 +41,10 @@ export class Matiere extends DepartementSigleNameItem {
     get collection_name() {
         return 'matieres';
     }
+    create_id() {
+        return this.base_prefix + '-' + this.uniteid + '-' +
+            this.sigle.toUpperCase();
+    } // create_id
     get ecs() {
         return this._ecs;
     }

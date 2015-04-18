@@ -292,4 +292,19 @@ export class Person extends BaseItem {
             null) &&
             (this.lastname !== null);
     }
+    hasRole(xrole){
+        if ((xrole !== undefined) && (xrole !== null) && (this.roles !== null)){
+            let srole = xrole.trim().toLowerCase();
+            if (srole.length > 0){
+                let n = this.roles.length;
+                for (let i = 0; i < n; ++i){
+                    let s = this.roles[i];
+                    if (s == srole){
+                        return true;
+                    }
+                }//i
+            }// srole            
+        }
+        return false;
+    }// hasRole
 } // class Person

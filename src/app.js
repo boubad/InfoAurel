@@ -5,12 +5,12 @@ import 'bootstrap/css/bootstrap.css!';
 //
 import {UserInfo} from './data/model/userinfo';
 //
-@inject(Router)
-@inject(UserInfo)
+@inject(Router,UserInfo)
 export class App {
   constructor(router,userInfo) {
     this.router = router;
     this.userInfo = userInfo;
+    this.userInfo.subscribe();
     this.router.configure(config => {
       config.title = 'InfoApp';
       config.map([

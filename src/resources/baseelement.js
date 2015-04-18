@@ -11,44 +11,35 @@ export class BaseElement {
       this.userInfo = userInfo;
       this.errorMessage = null;
       this.infoMessage = null;
-      this.person = null;
-      this.photoUrl = null;
       this.title = null;
+      this.dispose_func = null;
       this.menu = [];
-      let self = this;
-      this.eventAggregator.subscribe('personChanged', (payload) => {
-        self.person = null;
-        self.photoUrl = null;
-        if ((payload !== undefined) && (payload !== null)) {
-          if (payload.data !== undefined) {
-            self.person = payload.data;
-          }
-          if (payload.url !== undefined) {
-            self.photoUrl = payload.url;
-          }
-        }
-      });
     } // constructor
+  subscribe(){
+  }// subscribe  
+  unsubscribe(){
+    if (this.dispose_func !== null){
+      this.dispose_func();
+      this.dispose_func = null;
+    }
+  }
+  publish(channel,payload){
+     if ((this.eventAggregator !== undefined) && (this.eventAggregator !== null)){
+        this.eventAggregator.publish(channel, payload);
+     }
+  }
   activate() {
+   // this.subscribe();
     return true;
   }
+  deactivate(){
+    this.unsubscribe();
+  }
   update_title() {
-
     } // update_title
   update_menu() {
-
     } // update_menu
-  @computedFrom('person')
-  get isConnected() {
-    let p = this.person;
-    return (p !== undefined) && (p !== null) && (p.id !== indefined) &&
-      (p.id !== null) && (p.rev !== undefined) && (p.rev !== null);
-  }
-  @computedFrom('isConnected')
-  get isNotConnected(){
-    return (!this.isConnected);
-  }
-  @computedFrom('errorMessage')
+    @computedFrom('errorMessage')
   get hasErrorMessage() {
     return (this.errorMessage !== null) && (this.errorMessage.length > 0);
   }
@@ -63,16 +54,16 @@ export class BaseElement {
   set_error(err) {
       if ((err !== undefined) && (err !== null)) {
         if ((err.message !== undefined) && (err.message !== null)) {
-          this.errorMessage = err.message;
+          this.errorMessage = (err.message.length > 0) ? err.message : 'Erreur inconnue...';
         } else if ((err.msg !== undefined) && (err.msg !== null)) {
-          this.errorMessage = err.msg;
+          this.errorMessage = (err.msg.length > 0) ? err.msg : 'Erreur inconnue...';
         } else if ((err.reason !== undefined) && (err.reason !== null)) {
           this.errorMessage = err.reason;
         } else {
           this.errorMessage = JSON.stringify(err);
         }
       } else {
-        this.errorMessage = 'Erreur inconnue';
+        this.errorMessage = 'Erreur inconnue...';
       }
     } // set_error
 } // class UserLogin

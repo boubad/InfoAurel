@@ -13,12 +13,17 @@ import {DataService} from '../services/dataservice';
 export class UserInfo extends SessionObjectStore {
   constructor(eventAggregator,dataService) {
     super();
-    var self = this;
     this.eventAggregator = eventAggregator;
     this.dataService = dataService;
+    this.dispose_func = null;
     this._person = null;
-    this.eventAggregator.subscribe('infoMessage',(payload) =>{
-      if ((payload !== undefined) && (payload !== null)){
+  }// constructor
+  subscribe(){
+    if ((this.dispose_func === null) && (this.eventAggregator !== undefined) &&
+      (this.eventAggregator !== null)){
+       let self = this;
+       this.eventAggregator.subscribe('infoMessage',(payload) =>{
+       if ((payload !== undefined) && (payload !== null)){
           let type = (payload.type !== undefined) ? payload.type : null;
           if (type !== null){
             let val = (payload.value !== undefined) ? payload.value : null;
@@ -42,7 +47,19 @@ export class UserInfo extends SessionObjectStore {
           }// type
       }// payload
     });
-  }// constructor
+    }
+  }// subscribe  
+  unsubscribe(){
+    if (this.dispose_func !== null){
+      this.dispose_func();
+      this.dispose_func = null;
+    }
+  }
+  publish(channel,payload){
+     if ((this.eventAggregator !== undefined) && (this.eventAggregator !== null)){
+        this.eventAggregator.publish(channel, payload);
+     }
+  }
   get description() {
     return this.get_value('description');
   }
@@ -133,7 +150,7 @@ export class UserInfo extends SessionObjectStore {
     this.store_value('personid',s);
   }
   get personrev() {
-    return get_value('personrev');
+    return this.get_value('personrev');
   }
   set personrev(s) {
     this.store_value('personrev',s);
@@ -147,37 +164,39 @@ export class UserInfo extends SessionObjectStore {
   //
   get person() {
     if (this._person !== null){
-      return null;
+      return this._person;
     }
     let sval = this.get_value('person');
     if (sval === null){
       return null;
     }
-    let oMap = JSON.parse(sval);
-    var t = ((oMap.type !== undefined) && (oMap.type !== null)) ? oMap.type : null;
-    if (t === null){
-      return null;
+    let oMap = null;
+    try {
+         oMap = JSON.parse(sval);
+         var t = ((oMap.type !== undefined) && (oMap.type !== null)) ? oMap.type : null;
+          if (t === null){
+            return null;
+          }
+        if (t == 'person') {
+          this._person = new Person(oMap);
+        } else if (t == 'etudperson') {
+          this._person = new EtudiantPerson(oMap);
+       }  else if (t == 'profperson') {
+        this._person = new ProfPerson(oMap);
+      }
+    }catch(e){
+        console.log('UserInfo get person error: ' + JSON.stringify(e));
     }
-    if (t == 'person') {
-       this._person = new Person(oMap);
-    } else if (t == 'etudperson') {
-       this._person = new EtudiantPerson(oMap);
-    }else if (t == 'profperson') {
-       this._person = new ProfPerson(oMap);
-    }
-
     return this._person;
   }
   set person(pPers) {
-    if (!this.busy){
-      this.busy = true;
       let p = (pPers !== undefined) ? pPers : null;
-    let old = this.photoUrl;
-    if (old !== null){
-      window.URL.revokeObjectURL(old);
-    }
+      let old = this.photoUrl;
+      if (old !== null){
+          window.URL.revokeObjectURL(old);
+        }
     this.photoUrl = null;
-    this._person = p;
+    this._person = null;
     this.personid = null;
     this.password = null;
     this.personrev = null;
@@ -194,9 +213,12 @@ export class UserInfo extends SessionObjectStore {
     this.phone = null;
     this.description = null;
     if ((p !== null) && (p.id !== null)) {
+       let oMap  = {};
+       p.to_map(oMap);
+       this.store_value('person',oMap);
       let docid = p.id;
       let avatarid = p.avatarid;
-      this.personid = id;
+      this.personid = docid;
       this.personrev = p.rev;
       this.firstname = p.firstname;
       this.lastname = p.lastname;
@@ -205,31 +227,20 @@ export class UserInfo extends SessionObjectStore {
       this.phone = p.phone;
       this.password = p.password;
       this.description = p.description;
+      var self = this;
       if ((docid !== null) && (avatarid !== null)){
-         var self = this;
          this.dataService.get_attachment(docid,avatarid).then((blob)=>{
             if ((blob !== undefined) && (blob !== null)){
               let x = window.URL.createObjectURL(blob);
               self.photoUrl = x;
-              self.eventAggregator.publish('personChanged',{data:p,url:x});
+              self.publish('personChanged',{data:p,url:x});
             }
+         },(err)=>{
+            self.publish('personChanged',{data:p,url:null});
          });
       }// docid
     } else {
-      this.eventAggregator.publish('personChanged',{data:null,url:null});
+       this.publish('personChanged',{data:null,url:null});
     }
-    }// notBusy
-
-  }
-  disconnect(){
-    this.person = null;
-  }
-  @computedFrom('photoUrl')
-  get hasPhoto() {
-    return (this.photoUrl !== null);
-  }
-  @computedFrom('personid')
-  get isConnected(){
-    return (this.personid !== null)  && (this.personrev !== null);
   }
 }// class UserInfo

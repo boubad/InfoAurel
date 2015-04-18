@@ -14,25 +14,30 @@ let currentLocale = 'fr-FR';
 export class WelcomeClass extends BaseElement {
 	constructor(eventAggregator,dataService,userInfo,validation,validationConfig){
 		super(eventAggregator,dataService,userInfo);
-    let self = this;
 		this.validation = validation;
 		this.globalValidationConfig = validationConfig;
 		this.username = null;
 		this.password = null;
+		this._connnected = false;
 	  this.globalValidationConfig.useLocale(currentLocale);
 		this.validation.on(this)
 			.ensure('username').isNotEmpty()
 			.ensure('password').isNotEmpty();
-    this.eventAggregator.subscribe('personChanged',(msg) =>{
-       var bRet = false;
-       if ((msg !== undefined) && (msg !== null) && (msg.data !== undefined) &&
-       (msg.data !== null)){
-         bRet = true;
-       }
-       self.isConnected = bRet;
-  		});
+    
 	}// constructor
-  @computedFrom('username','password')
+	activate(){
+		super.activate();
+	}
+	get isConnected(){
+		return this._connnected;
+	}
+	set isConnected(b){
+		this._connnected = b;
+	}
+	get isNotConnected(){
+		return (!this.isConnected);
+	}
+	@computedFrom('username','password')
 	get canConnect(){
     if ((this.usename === undefined) || (this.password === undefined)){
       return false;
@@ -44,7 +49,7 @@ export class WelcomeClass extends BaseElement {
     }
 		return (x1.length > 0)  && (x2.length > 0);
 	}// canConnect
-  @computedFrom('canConnect')
+  @computedFrom('canConnect')	
   get isDisabled(){
     return (!this.canConnect);
   }
@@ -56,21 +61,17 @@ export class WelcomeClass extends BaseElement {
 		}
 		var self = this;
 		var id = 'PER-' + x1.toLowerCase();
+		var userinfo = this.userInfo;
 		this.dataService.get_item_by_id(id).then((pPers)=>{
 			if ((pPers !== undefined) && (pPers !== null)){
-				self.eventAggregator.publish('infoMessage',{type:'person',value:pPers});
+				self.isConnected = true;
+				userinfo.person = pPers;
 			} else {
-				self.errorMessage('Utilisateur inconnu...');
+				self.errorMessage = 'Utilisateur inconnu...';
 			}
 		},(err)=>{
-			if ((err !== undefined) && (err !== null)){
-				if ((err.message !== undefined) && (err.message !== null)){
-					self.errorMessage = err.message;
-				} else {
-					self.errorMessage = JSON.stringify(err);
-				}
-			}
+			self.set_error(err);
 		});
 	}// connect
-}// class UserLogin
+}// class Welcome
 //
