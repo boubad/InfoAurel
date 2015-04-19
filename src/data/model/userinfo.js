@@ -1,7 +1,6 @@
 //userinfo.js
 //
 import {inject, computedFrom} from 'aurelia-framework';
-import {EventAggregator} from 'aurelia-event-aggregator';
 //
 import {SessionObjectStore} from '../services/sessionstore';
 import {Person} from '../domain/person';
@@ -9,57 +8,13 @@ import {EtudiantPerson} from '../domain/etudperson';
 import {ProfPerson} from '../domain/profperson';
 import {DataService} from '../services/dataservice';
 //
-@inject(EventAggregator,DataService)
+@inject(DataService)
 export class UserInfo extends SessionObjectStore {
-  constructor(eventAggregator,dataService) {
+  constructor(dataService) {
     super();
-    this.eventAggregator = eventAggregator;
     this.dataService = dataService;
-    this.dispose_func = null;
     this._person = null;
   }// constructor
-  subscribe(){
-    if ((this.dispose_func === null) && (this.eventAggregator !== undefined) &&
-      (this.eventAggregator !== null)){
-       let self = this;
-       this.eventAggregator.subscribe('infoMessage',(payload) =>{
-       if ((payload !== undefined) && (payload !== null)){
-          let type = (payload.type !== undefined) ? payload.type : null;
-          if (type !== null){
-            let val = (payload.value !== undefined) ? payload.value : null;
-            if (type == 'person'){
-                self.person = val;
-            } else if (type == 'departementid'){
-              self.departementid = val;
-            }else if (type == 'anneeid'){
-              self.anneeid = val;
-            }else if (type == 'semestreid'){
-              self.semestreid = val;
-            }else if (type == 'uniteid'){
-              self.uniteid = val;
-            }else if (type == 'matiereid'){
-              self.matiereid = val;
-            }else if (type == 'groupeid'){
-              self.groupeid = val;
-            } else if (type == 'disconnect'){
-              self.person = null;
-            }
-          }// type
-      }// payload
-    });
-    }
-  }// subscribe  
-  unsubscribe(){
-    if (this.dispose_func !== null){
-      this.dispose_func();
-      this.dispose_func = null;
-    }
-  }
-  publish(channel,payload){
-     if ((this.eventAggregator !== undefined) && (this.eventAggregator !== null)){
-        this.eventAggregator.publish(channel, payload);
-     }
-  }
   get description() {
     return this.get_value('description');
   }
@@ -101,6 +56,10 @@ export class UserInfo extends SessionObjectStore {
   }
   set photoUrl(s){
     this.store_value('photoUrl',s);
+  }
+  @computedFrom('photoUrl')
+  get hasPhoto(){
+    return (this.photoUrl !== null);
   }
   get groupeid() {
     return this.get_value('groupeid');
@@ -160,6 +119,10 @@ export class UserInfo extends SessionObjectStore {
   }
   set password(s){
     this.store_value('password',s);
+  }
+  @computedFrom('photoUrl')
+  get hasPhoto(){
+    return (this.photoUrl !== null);
   }
   //
   get person() {
@@ -233,14 +196,16 @@ export class UserInfo extends SessionObjectStore {
             if ((blob !== undefined) && (blob !== null)){
               let x = window.URL.createObjectURL(blob);
               self.photoUrl = x;
-              self.publish('personChanged',{data:p,url:x});
             }
          },(err)=>{
-            self.publish('personChanged',{data:p,url:null});
          });
       }// docid
     } else {
-       this.publish('personChanged',{data:null,url:null});
     }
   }
+  @computedFrom('person')
+  get isConnected(){
+    let p = this.person;
+    return ((p !== undefined) && (p !== null) && (p.id !== undefined) && (p.id !== null));
+  }// isConnected
 }// class UserInfo

@@ -14,7 +14,7 @@ export class App {
     this.router.configure(config => {
       config.title = 'InfoApp';
       config.map([
-        { route: ['','welcome'],  moduleId: './welcome',      nav: true, title:'Welcome' },
+        { route: ['','welcome'],  moduleId: './data/model/home',      nav: true, title:'Welcome' },
         { route: 'admin-router',  moduleId: './admin-router', nav: true, title:'Administration' },
         { route: 'affetuds',  moduleId: './welcome', nav: false, title:'Affectation étudiants' },
         { route: 'affprofs',  moduleId: './welcome', nav: false, title:'Affectations enseignants' },
