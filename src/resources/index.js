@@ -1,5 +1,5 @@
 //index.js
 //
 export function install(aurelia){
-	aurelia.globalizeResources('./user-info');
+	aurelia.globalizeResources('./nav-bar','./user-info');
 }

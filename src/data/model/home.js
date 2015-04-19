@@ -2,32 +2,26 @@
 //
 import {inject, computedFrom} from 'aurelia-framework';
 import {Validation,ValidationConfig} from 'aurelia-validation';
+import {DataService} from '../services/dataservice';
+import {UserInfo} from './userinfo';
+import {BaseModel} from './basemodel';
 //
-import {DataService} from './data/services/dataservice';
-import {UserInfo} from './data/model/userinfo';
-//
-import {BaseElement} from './basemodel';
-import {BaseUserModel} from './baseusermodel';
-//
-let currentLocale = 'fr-FR';
-//
-@inject(DataService,UserInfo,BaseUserModel,Validation,ValidationConfig)
+@inject(DataService,UserInfo,Validation,ValidationConfig)
 export class HomeClass extends BaseModel {
-	constructor(dataService,userInfo,baseUserModel,validation,validationConfig){
-		super(dataService,userInfo);
-		this.dataModel = baseUserModel;
-		this.validation = validation;
-		this.globalValidationConfig = validationConfig;
+	constructor(dataService,userInfo,validation,validationConfig){
+		super(dataService,userInfo,validation,validationConfig);
 		this.username = null;
 		this.password = null;
-	  this.globalValidationConfig.useLocale(currentLocale);
 		this.validation.on(this)
 			.ensure('username').isNotEmpty()
 			.ensure('password').isNotEmpty();
     
 	}// constructor
+	get personid(){
+		return this.userInfo.personid;
+	}
 	get isConnected(){
-		return this.dataModel.isConnected;
+		return (this.personid !== null);
 	}
 	get isNotConnected(){
 		return (!this.isConnected);

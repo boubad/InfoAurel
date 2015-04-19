@@ -1,29 +1,31 @@
 <template>
-    <require from="../../resources/user-info"></require>
 <!-- ==================== -->
-<h2>Connexion</h2>
 <h3 show.bind = "hasErrorMessage" class="text-danger">${errorMessage}<h3>
-    <div show.bind="isConnected">
-        <user-info dataModel.bind='dataModel'/>    
+<div show.bind="isConnected">
+    <user-info personid.bind="personid"/>
+</div>
+<div show.bind="isNotConnected">
+    <div class="row">
+        <h2>Connexion</h2>
+        <div class="col-md-" />
+            <div class="col-md-8">
+                <form role="form" validate.bind="validate">
+                    <div class="form-group">
+                        <label>Identifiant</label>
+                        <input id="username" type="text" class="form-control" value.bind="username"
+                        placeholder="Identifiant utilisateur" />
+                    </div>
+                    <div class="form-group">
+                        <label>Mot de passe</label>
+                        <input id="password" type="text" class="form-control" value.bind="password"
+                        placeholder="Mot de passe" />
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" click.delegate="connect()" class="btn btn-primary">Connecter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-<div class="row" show.bind="isNotConnected">
-	<div class="col-md-" />
-    <div class="col-md-8">
-        <form role="form" if.bind="isNotConnected" validate.bind="validate">
-            <div class="form-group">
-                <label>Identifiant</label>
-                <input id="username" type="text" class="form-control" value.bind="username"
-                placeholder="Identifiant utilisateur" />
-            </div>
-            <div class="form-group">
-                <label>Mot de passe</label>
-                <input id="password" type="text" class="form-control" value.bind="password"
-                placeholder="Mot de passe" />
-            </div>
-            <div class="btn-group">
-                <button type="button" click.delegate="connect()" class="btn btn-primary">Connecter</button>
-            </div>
-        </form>
-    </div>
-    <div>
+</div>
 </template>

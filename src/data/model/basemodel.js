@@ -3,11 +3,19 @@ import {
   computedFrom
 }
 from 'aurelia-framework';
+
+//
+import {BaseUserModel} from './baseusermodel';
+//
+const currentLocale = 'fr-FR';
 //
 export class BaseModel {
-  constructor(dataService, userInfo) {
+  constructor(dataService, userInfo,Validation,ValidationConfig) {
       this.dataService = dataService;
       this.userInfo = userInfo;
+      this.validation = validation;
+      this.globalValidationConfig = validationConfig;
+      this.globalValidationConfig.useLocale(currentLocale);
       this.errorMessage = null;
       this.infoMessage = null;
       this.title = null;

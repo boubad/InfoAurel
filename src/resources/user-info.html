@@ -1,8 +1,8 @@
 <template>
 	<div class="container row">
 		<div class="col-md-1">${fullname}</div>
-		<div if.bind="dataModel.hasPhoto" class="col-md-1">
-			<img src.bind="dataModel.photoUrl" height="48" />
+		<div if.bind="hasPhoto" class="col-md-1">
+			<img src.bind="photoUrl" height="48" />
 		</div>
 		<div class="col-md-1">
 			<a href="#" click.delegate="disconnect()">Déconnecter</a>
@@ -10,57 +10,57 @@
 	</div>
 	<form role="form">
 		<div class="row">
-				<div class="col-md-1" if:bind="dataModel.isDepartement">
+				<div class="col-md-1" show.bind="isDepartement">
 					<div class="form-group">
 						<label  class="control-label" for="ldep">Dép</label>
-						<select id= "ldep" class="form-control" value.bind="dataModel.departement">
+						<select id= "ldep" class="form-control" value.bind="departement">
 							<option>Département...</option>
-							<option repeat.for="dep of dataModel.departements" model.bind="dep">${dep.toString()}</option>
+							<option repeat.for="dep of departements" model.bind="dep">${dep.toString()}</option>
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" if:bind=" dataModel.isAnnee">
+				<div class="col-md-1" show.bind=" isAnnee">
 					<div class="form-group">
 						<label class="control-label" for="lan">Année</label>
-						<select id="lan" class="form-control" value.bind="dataModel.annee">
+						<select id="lan" class="form-control" value.bind="annee">
 							<option>Année...</option>
-							<option repeat.for="an of  dataModel.annees" model.bind="an">${an.toString()}</option>
+							<option repeat.for="an of  annees" model.bind="an">${an.toString()}</option>
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" if:bind="dataModel.isSemestre">
+				<div class="col-md-1" show.bind="isSemestre">
 					<div class="form-group">
 						<label class="control-label" for="lsem">Semestre</label>
-						<select id="lsem" class="form-control" value.bind="dataModel.semestre">
+						<select id="lsem" class="form-control" value.bind="semestre">
 							<option>Semestre...</option>
-							<option repeat.for="sem of dataModel.semestres" model.bind="sem">${sem.toString()}</option>
+							<option repeat.for="sem of semestres" model.bind="sem">${sem.toString()}</option>
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" if:bind="dataModel.isUnite">
+				<div class="col-md-1" show.bind="isUnite">
 					<div class="form-group">
 						<label class="control-label" for="lun">Unité</label>
-						<select id="lun" class="form-control" value.bind="dataModel.unite">
+						<select id="lun" class="form-control" value.bind="unite">
 							<option>Unité...</option>
-							<option repeat.for="un of dataModel.unites" model.bind="un">${un.toString()}</option>
+							<option repeat.for="un of unites" model.bind="un">${un.toString()}</option>
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" if:bind="dataModel.isMatiere">
+				<div class="col-md-1" show.bind="isMatiere">
 					<div class="form-group">
 						<label class="control-label" for="lmat">Matière</label>
-						<select id="lmat" class="form-control" value.bind="dataModel.matiere">
+						<select id="lmat" class="form-control" value.bind="matiere">
 							<option>Matière...</option>
-							<option repeat.for="mat of dataModel.matieres" model.bind="mat">${mat.toString()}</option>
+							<option repeat.for="mat of matieres" model.bind="mat">${mat.toString()}</option>
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" if:bind="dataModel.isGroupe">
+				<div class="col-md-1" show.bind="isGroupe">
 					<div class="form-group">
 						<label class="control-label" for="lgrp">Groupe</label>
-						<select id="lgrp" class="form-control" value.bind="dataModel.groupe">
+						<select id="lgrp" class="form-control" value.bind="groupe">
 							<option>Groupe...</option>
-							<option repeat.for="grp of dataModel.groupes" model.bind="grp">${grp.toString()}</option>
+							<option repeat.for="grp of groupes" model.bind="grp">${grp.toString()}</option>
 						</select>
 					</div>
 				</div>

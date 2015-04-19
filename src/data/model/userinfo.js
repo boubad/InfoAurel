@@ -1,16 +1,15 @@
 //userinfo.js
 //
-import {inject, computedFrom} from 'aurelia-framework';
+import {singleton,computedFrom} from 'aurelia-framework';
 //
 import {SessionObjectStore} from '../services/sessionstore';
 import {Person} from '../domain/person';
 import {EtudiantPerson} from '../domain/etudperson';
 import {ProfPerson} from '../domain/profperson';
-import {DataService} from '../services/dataservice';
 //
-@inject(DataService)
+@singleton()
 export class UserInfo extends SessionObjectStore {
-  constructor(dataService) {
+  constructor() {
     super();
     this.dataService = dataService;
     this._person = null;
@@ -120,10 +119,6 @@ export class UserInfo extends SessionObjectStore {
   set password(s){
     this.store_value('password',s);
   }
-  @computedFrom('photoUrl')
-  get hasPhoto(){
-    return (this.photoUrl !== null);
-  }
   //
   get person() {
     if (this._person !== null){
@@ -154,10 +149,6 @@ export class UserInfo extends SessionObjectStore {
   }
   set person(pPers) {
       let p = (pPers !== undefined) ? pPers : null;
-      let old = this.photoUrl;
-      if (old !== null){
-          window.URL.revokeObjectURL(old);
-        }
     this.photoUrl = null;
     this._person = null;
     this.personid = null;
@@ -190,18 +181,6 @@ export class UserInfo extends SessionObjectStore {
       this.phone = p.phone;
       this.password = p.password;
       this.description = p.description;
-      var self = this;
-      if ((docid !== null) && (avatarid !== null)){
-         this.dataService.get_attachment(docid,avatarid).then((blob)=>{
-            if ((blob !== undefined) && (blob !== null)){
-              let x = window.URL.createObjectURL(blob);
-              self.photoUrl = x;
-            }
-         },(err)=>{
-         });
-      }// docid
-    } else {
-    }
   }
   @computedFrom('person')
   get isConnected(){
