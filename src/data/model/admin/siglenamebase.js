@@ -4,12 +4,12 @@ import {computedFrom} from 'aurelia-framework';
 import {PagedViewModel} from './pagedviewmodel';
 //
 export class SigleNameModel extends PagedViewModel {
-	constructor(dataService, userInfo,Validation,ValidationConfig,model){
-		super(dataService, userInfo,Validation,ValidationConfig,model);
+	constructor(dataService,userInfo,model){
+		super(dataService,userInfo,model);
 	}
 	get sigle(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.sigle : null;
+		return ((x !== undefined) && (x !== null)) ? x.sigle : null;
 	}
 	set sigle(s){
 		let  x = this.current_item;
@@ -19,7 +19,7 @@ export class SigleNameModel extends PagedViewModel {
 	}
 	get name(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.name : null;
+		return ((x !== undefined) && (x !== null)) ? x.name : null;
 	}
 	set name(s){
 		let  x = this.current_item;
@@ -29,7 +29,7 @@ export class SigleNameModel extends PagedViewModel {
 	}
 	get description(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.description : null;
+		return ((x !== undefined) && (x !== null)) ? x.description : null;
 	}
 	set description(s){
 		let  x = this.current_item;

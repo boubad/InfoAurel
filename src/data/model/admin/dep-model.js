@@ -1,20 +1,16 @@
 //dep-model.js
 //
 import {inject} from 'aurelia-framework';
-import {Validation,ValidationConfig} from 'aurelia-validation';
-//
 import {DataService} from '../../services/dataservice';
 import {UserInfo} from '../userinfo';
 import {Departement} from '../../domain/departement';
 import {SigleNameModel} from './siglenamebase';
 //
 //
-@inject(DataService,UserInfo,Validation,ValidationConfig)
+@inject(DataService,UserInfo)
 export class DepModelClass extends SigleNameModel {
-	constructor(dataService,userInfo,validation,validationConfig){
-		super(dataService,userInfo,validation,validationConfig,new Departement());
-		this.validation.on(this)
-			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31);
+	constructor(dataService,userInfo){
+		super(dataService,userInfo,new Departement());
 		this.title = 'Départements';
 	}// constructor
 	post_change_item(){

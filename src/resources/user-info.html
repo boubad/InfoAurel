@@ -1,16 +1,19 @@
 <template>
-	<div class="container row">
-		<div>${fullname}</div>
-		<div if.bind="hasPhoto">
-			<img src.bind="photoUrl" height="48" />
-		</div>
-		<div>
-			<a href="#" click.delegate="disconnect()">Déconnecter</a>
-		</div>
-	</div>
-	<form role="form" class="form-horizontal">
-		<div class="container">
-				<div show.bind="isDepartement">
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<div>${fullname}</div>
+				</td>
+				<td if:bind="hasPhoto">
+					<img src.bind="photoUrl" height="48" />
+				</td>
+				<td>
+					<a href="#" click.delegate="disconnect()">Déconnecter</a>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<div class="form-group">
 						<label  class="control-label" for="ldep">Dép</label>
 						<select id= "ldep" class="form-control" value.bind="departement">
@@ -18,8 +21,8 @@
 							<option repeat.for="dep of departements" model.bind="dep">${dep.toString()}</option>
 						</select>
 					</div>
-				</div>
-				<div show.bind=" isAnnee">
+				</td>
+				<td>
 					<div class="form-group">
 						<label class="control-label" for="lan">Année</label>
 						<select id="lan" class="form-control" value.bind="annee">
@@ -27,8 +30,8 @@
 							<option repeat.for="an of  annees" model.bind="an">${an.toString()}</option>
 						</select>
 					</div>
-				</div>
-				<div  show.bind="isSemestre">
+				</td>
+				<td>
 					<div class="form-group">
 						<label class="control-label" for="lsem">Semestre</label>
 						<select id="lsem" class="form-control" value.bind="semestre">
@@ -36,8 +39,8 @@
 							<option repeat.for="sem of semestres" model.bind="sem">${sem.toString()}</option>
 						</select>
 					</div>
-				</div>
-				<div show.bind="isUnite">
+				</td>
+				<td>
 					<div class="form-group">
 						<label class="control-label" for="lun">Unité</label>
 						<select id="lun" class="form-control" value.bind="unite">
@@ -45,8 +48,8 @@
 							<option repeat.for="un of unites" model.bind="un">${un.toString()}</option>
 						</select>
 					</div>
-				</div>
-				<div show.bind="isMatiere">
+				</td>
+				<td>
 					<div class="form-group">
 						<label class="control-label" for="lmat">Matière</label>
 						<select id="lmat" class="form-control" value.bind="matiere">
@@ -54,8 +57,8 @@
 							<option repeat.for="mat of matieres" model.bind="mat">${mat.toString()}</option>
 						</select>
 					</div>
-				</div>
-				<div show.bind="isGroupe">
+				</td>
+				<td>
 					<div class="form-group">
 						<label class="control-label" for="lgrp">Groupe</label>
 						<select id="lgrp" class="form-control" value.bind="groupe">
@@ -63,7 +66,8 @@
 							<option repeat.for="grp of groupes" model.bind="grp">${grp.toString()}</option>
 						</select>
 					</div>
-				</div>
-			</div>
-	</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </template>

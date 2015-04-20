@@ -4,12 +4,12 @@ import {computedFrom} from 'aurelia-framework';
 import {DepSigleNameModel} from './depsiglenameitem';
 //
 export class IntervalModel extends DepSigleNameModel {
-	constructor(dataService, userInfo,Validation,ValidationConfig,model){
-		super(dataService, userInfo,Validation,ValidationConfig,model);
+	constructor(dataService, userInfo,model){
+		super(dataService, userInfo,model);
 	}// constructor
 	get startDate(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.startDate : null;
+		return ((x !== undefined) && (x !== null)) ? x.startDate : null;
 	}
 	set startDate(s){
 		let  x = this.current_item;
@@ -19,7 +19,7 @@ export class IntervalModel extends DepSigleNameModel {
 	}// starDate
 	get endDate(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.endDate : null;
+		return ((x !== undefined) && (x !== null)) ? x.endDate : null;
 	}
 	set endDate(s){
 		let  x = this.current_item;

@@ -1,23 +1,17 @@
 //semestre-model.js
 //
 import {inject} from 'aurelia-framework';
-import {Validation,ValidationConfig} from 'aurelia-validation';
 //
 import {DataService} from '../../services/dataservice';
 import {UserInfo} from '../userinfo';
 import {Semestre} from '../../domain/semestre';
 import {IntervalModel} from './intervalitem';
 //
-@inject(DataService,UserInfo,Validation,ValidationConfig)
+@inject(DataService,UserInfo)
 export class SemestreModelClass extends IntervalModel {
-	constructor(dataService,userInfo,validation,validationConfig){
-		super(dataService,userInfo,validation,validationConfig,new Semestre());
+	constructor(dataService,userInfo){
+		super(dataService,userInfo,new Semestre());
 		this.annee = null;
-		this.validation.on(this)
-			.ensure('departementid').isNotEmpty()
-			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31)
-			.ensure('startDate').isNotEmpty()
-			.ensure('endDate').isNotEmpty();
 		this.base_title = 'Semestres';
 	}// constructor
 	activate(){

@@ -4,8 +4,8 @@ import {computedFrom} from 'aurelia-framework';
 import {SigleNameModel} from './siglenamebase';
 //
 export class DepSigleNameModel extends SigleNameModel {
-	constructor(dataService, userInfo,Validation,ValidationConfig,model){
-		super(dataService, userInfo,Validation,ValidationConfig,model);
+	constructor(dataService, userInfo,model){
+		super(dataService, userInfo,model);
 		this.departement = null;
 		this.base_title = null;
 	}// constructor

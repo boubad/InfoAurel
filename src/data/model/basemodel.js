@@ -3,21 +3,14 @@ import {
   computedFrom
 }
 from 'aurelia-framework';
-
-//
-const currentLocale = 'fr-FR';
 //
 export class BaseModel {
-  constructor(dataService, userInfo,validation,validationConfig) {
+  constructor(dataService,userInfo) {
       this.dataService = dataService;
-      this.userInfo = userInfo;
-      this.validation = validation;
-      this.globalValidationConfig = validationConfig;
-      this.globalValidationConfig.useLocale(currentLocale);
+      this.userInfo = userinfo;
       this.errorMessage = null;
       this.infoMessage = null;
       this.title = null;
-      this.dispose_func = null;
       this.menu = [];
     } // constructor
     get personid(){

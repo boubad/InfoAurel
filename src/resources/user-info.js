@@ -7,14 +7,9 @@ import {DataService} from '../data/services/dataservice';
 @customElement('user-info')
 export class UserInfoCustomElement {
 	constructor(){
-		this.dataService = new DataService();
+		this.dataService = null;
 		this.userInfo = new UserInfo();
-		this.isDepartement = true;
-		this.isAnnee = true;
-		this.isSemestre = true;
-		this.isUnite = true;
-		this.isMatiere = true;
-		this.isGroupe = true;
+		this.personid = this.userInfo.personid;
 		this.isAdmin = false;
 		this.isSuper = false;
 		this.departements = [];
@@ -36,37 +31,6 @@ export class UserInfoCustomElement {
       changeHandler:'personidChanged', //name of the method to invoke on property changes
       defaultValue: null //default value of the property, if not bound or set in HTML
       });
-	@bindable({
-		name:'isDepartement',
-		attribute:'isDepartement',
-		defaultValue: false
-	});
-	@bindable({
-		name:'isAnnee',
-		attribute:'isAnnee',
-		defaultValue: false
-	});
-	@bindable({
-		name:'isSemestre',
-		attribute:'isSemestre',
-		defaultValue: false
-	});
-	@bindable({
-		name:'isUnite',
-		attribute:'isUnite',
-		defaultValue: false
-	});
-	@bindable({
-		name:'isMatiere',
-		attribute:'isMatiere',
-		defaultValue: false
-	});
-	@bindable({
-		name:'isGroupe',
-		attribute:'isGroupe',
-		defaultValue: false
-	});
-	
 	personidChanged(){
 		let id = (this.personid !== undefined)? this.personid : null;
 		this.isAdmin = false;
@@ -86,11 +50,15 @@ export class UserInfoCustomElement {
 		if (id === null){
 			return;
 		}
+		if (this.dataService === null){
+			this.dataService = new DataService();
+		}
 		let self = this;
 		let service = this.dataService;
 		let pPers = null;
 		let xurl = null;
-		this.dataService.get_item_by_id(id).then((p)=>{
+		let userinfo = this.userInfo;
+		service.get_item_by_id(id).then((p)=>{
 			let pPers = (p !== undefined) ? p : null;
 			pPers = p;
 			let avatarid = null;
@@ -113,10 +81,8 @@ export class UserInfoCustomElement {
 			if (data !== null){
                xurl = window.URL.createObjectURL(data);
 			}
-			if ((self.userInfo !== undefined) && (self.userInfo !== null)){
-				self.photoUrl = xul;
-			}
-			self.photoUrl = xurl;
+			userinfo.photoUrl = xurl;
+			self.person = pPers;
 		},(e2)=>{
 		});
 	}// personidChanged
@@ -132,6 +98,9 @@ export class UserInfoCustomElement {
 		let x = ((this.userInfo !== undefined) && (this.userInfo !== null)) ? this.userInfo : null;
 		return (x !== null) ? x.isConnected : false;
 	}
+	get isNotConnected(){
+		return (!this.isConnected);
+	}
 	get hasPhoto(){
 		let x = ((this.userInfo !== undefined) && (this.userInfo !== null)) ? this.userInfo : null;
 		return (x !== null) ? x.hasPhoto : false;
@@ -143,7 +112,6 @@ export class UserInfoCustomElement {
 	}
 	set person(pPers){
 		let p = (pPers !== undefined)? pPers : null;
-		this._person = pPers;
 		if ((p === undefined) || (p === null)){
 			return;
 		}

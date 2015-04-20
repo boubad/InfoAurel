@@ -1,22 +1,17 @@
 //matiere-model.js
 //
 import {inject} from 'aurelia-framework';
-import {Validation,ValidationConfig} from 'aurelia-validation';
 //
 import {DataService} from '../../services/dataservice';
 import {UserInfo} from '../userinfo';
 import {Matiere} from '../../domain/matiere';
 import {DepSigleNameModel} from './depsiglenameitem';
 //
-@inject(DataService,UserInfo,Validation,ValidationConfig)
+@inject(DataService,UserInfo)
 export class MatiereModelClass extends DepSigleNameModel {
-	constructor(dataService,userInfo,validation,validationConfig){
-		super(dataService,userInfo,validation,validationConfig,new Semestre());
+	constructor(dataService,userInfo){
+		super(dataService,userInfo,new Semestre());
 		this.unite = null;
-		this.validation.on(this)
-			.ensure('departementid').isNotEmpty()
-			.ensure('uniteid').isNotEmpty()
-			.ensure('sigle').isNotEmpty().hasLengthBetween(2,31);
 		this.base_title = 'Matières';
 	}// constructor
 	activate(){
@@ -57,7 +52,7 @@ export class MatiereModelClass extends DepSigleNameModel {
   }// post_change_item
   get genre(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.genre : null;
+		return ((x !== undefined) && (x !== null)) ? x.genre : null;
 	}
  set genre(s){
 		let  x = this.current_item;
@@ -67,7 +62,7 @@ export class MatiereModelClass extends DepSigleNameModel {
 	}
 	get mat_module(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.mat_module : null;
+		return ((x !== undefined) && (x !== null)) ? x.mat_module : null;
 	}
  set mat_module(s){
 		let  x = this.current_item;
@@ -77,7 +72,7 @@ export class MatiereModelClass extends DepSigleNameModel {
 	}
 	get coefficient(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.coefficient : null;
+		return ((x !== undefined) && (x !== null)) ? x.coefficient : null;
 	}
  set coefficient(s){
 		let  x = this.current_item;
@@ -87,7 +82,7 @@ export class MatiereModelClass extends DepSigleNameModel {
 	}
 	get ecs(){
 		let x = this.current_item;
-		return ((x !== undefined) && (x !== nulll)) ? x.ecs : null;
+		return ((x !== undefined) && (x !== null)) ? x.ecs : null;
 	}
  set ecs(s){
 		let  x = this.current_item;

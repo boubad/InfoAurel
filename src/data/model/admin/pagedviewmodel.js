@@ -5,8 +5,8 @@ import {computedFrom} from 'aurelia-framework';
 import {BaseModel} from '../basemodel';
 //
 export class PagedViewModel extends BaseModel {
-	constructor(dataService, userInfo,Validation,ValidationConfig,model){
-		super(dataService, userInfo,Validation,ValidationConfig);
+	constructor(dataService,userInfo,model){
+		super(dataService,userInfo);
 		this.modelItem = model;
 		this.add_mode = false;
 		this.old_elem = null;
@@ -234,7 +234,9 @@ export class PagedViewModel extends BaseModel {
   }// refresh
   refreshAll(){
   	this.skip = 0;
+    this.prev_key = null;
   	this.start_key = null;
+    this.next_key = null;
   	this.refresh();
   }
   nextPage(){

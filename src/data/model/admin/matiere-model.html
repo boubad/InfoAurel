@@ -1,8 +1,7 @@
 <template>
 	<!-- ============================== -->
 	<h2>$(title)</h2>
-	<user-info dataservice.bind="dataService" userinfo.bind="userInfo" personid.bind="personid" 
-		isDepartement="true" isUnite="true">
+	<user-info personid.bind="personid">
 	</user_info>
 	<h3 show.bind = "hasErrorMessage" class="text-danger">$(errorMessage)</h3>
 	<h3 show.bind = "hasInfoMessage" class="text-success">$(infoMessage)</h3>
@@ -20,7 +19,7 @@
 			<div>
 				<button type="button" click.delegate="refreshAll()" class="btn btn-primary">Rafraîchir</button>
 			</div>
-			<form role="form" validation.bind="validation">
+			<form role="form">
 				<input type="hidden" id="departementid" name="departementid" value.bind="departementid" />
 				<input type="hidden" id="anneeid" name="anneeid" value.bind="anneeid" />
 				<div class="form-group">

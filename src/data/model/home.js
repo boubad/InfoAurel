@@ -1,21 +1,16 @@
 //home.js
 //
 import {inject, computedFrom} from 'aurelia-framework';
-import {Validation,ValidationConfig} from 'aurelia-validation';
 import {DataService} from '../services/dataservice';
 import {UserInfo} from './userinfo';
 import {BaseModel} from './basemodel';
 //
-@inject(DataService,UserInfo,Validation,ValidationConfig)
+@inject(DataService,UserInfo)
 export class HomeClass extends BaseModel {
-	constructor(dataService,userInfo,validation,validationConfig){
-		super(dataService,userInfo,validation,validationConfig);
+	constructor(dataService,userInfo){
+		super(dataService,userInfo);
 		this.username = null;
 		this.password = null;
-		this.validation.on(this)
-			.ensure('username').isNotEmpty()
-			.ensure('password').isNotEmpty();
-    
 	}// constructor
 	get personid(){
 		return this.userInfo.personid;
