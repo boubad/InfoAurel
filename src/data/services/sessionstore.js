@@ -22,7 +22,12 @@ export class SessionObjectStore {
       let skey = key.trim().toLowerCase();
       if (skey.length > 0) {
           try {
-            window.sessionStorage.setItem(skey,value);
+            if ((value !== undefined) && (value !== null)){
+              window.sessionStorage.setItem(skey,value);
+            } else if (window.sessionStorage.getItem(skey) !== null){
+              window.sessionStorage.removeItem(skey);
+            }
+            
           } catch (e) {
             console.log('SessionObjectStore error: ' + e.toString());
           }

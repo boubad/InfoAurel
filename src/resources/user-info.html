@@ -1,16 +1,16 @@
 <template>
 	<div class="container row">
-		<div class="col-md-1">${fullname}</div>
-		<div if.bind="hasPhoto" class="col-md-1">
+		<div>${fullname}</div>
+		<div if.bind="hasPhoto">
 			<img src.bind="photoUrl" height="48" />
 		</div>
-		<div class="col-md-1">
+		<div>
 			<a href="#" click.delegate="disconnect()">Déconnecter</a>
 		</div>
 	</div>
-	<form role="form">
-		<div class="row">
-				<div class="col-md-1" show.bind="isDepartement">
+	<form role="form" class="form-horizontal">
+		<div class="container">
+				<div show.bind="isDepartement">
 					<div class="form-group">
 						<label  class="control-label" for="ldep">Dép</label>
 						<select id= "ldep" class="form-control" value.bind="departement">
@@ -19,7 +19,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" show.bind=" isAnnee">
+				<div show.bind=" isAnnee">
 					<div class="form-group">
 						<label class="control-label" for="lan">Année</label>
 						<select id="lan" class="form-control" value.bind="annee">
@@ -28,7 +28,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" show.bind="isSemestre">
+				<div  show.bind="isSemestre">
 					<div class="form-group">
 						<label class="control-label" for="lsem">Semestre</label>
 						<select id="lsem" class="form-control" value.bind="semestre">
@@ -37,7 +37,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" show.bind="isUnite">
+				<div show.bind="isUnite">
 					<div class="form-group">
 						<label class="control-label" for="lun">Unité</label>
 						<select id="lun" class="form-control" value.bind="unite">
@@ -46,7 +46,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" show.bind="isMatiere">
+				<div show.bind="isMatiere">
 					<div class="form-group">
 						<label class="control-label" for="lmat">Matière</label>
 						<select id="lmat" class="form-control" value.bind="matiere">
@@ -55,7 +55,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="col-md-1" show.bind="isGroupe">
+				<div show.bind="isGroupe">
 					<div class="form-group">
 						<label class="control-label" for="lgrp">Groupe</label>
 						<select id="lgrp" class="form-control" value.bind="groupe">

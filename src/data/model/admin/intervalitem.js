@@ -1,13 +1,12 @@
 //intervalitem.js
 import {computedFrom} from 'aurelia-framework';
 //
-import {DepSigleNameBase} from './depsiglenameitem';
+import {DepSigleNameModel} from './depsiglenameitem';
 //
-export class IntervalBase extends DepSigleNameBase {
-	constructor(eventAggregator,dataService,userInfo,model){
-		super(eventAggregator,dataService,userInfo,model);
+export class IntervalModel extends DepSigleNameModel {
+	constructor(dataService, userInfo,Validation,ValidationConfig,model){
+		super(dataService, userInfo,Validation,ValidationConfig,model);
 	}// constructor
-	@computedFrom('current_item.startDate')
 	get startDate(){
 		let x = this.current_item;
 		return ((x !== undefined) && (x !== nulll)) ? x.startDate : null;
@@ -15,10 +14,9 @@ export class IntervalBase extends DepSigleNameBase {
 	set startDate(s){
 		let  x = this.current_item;
 		if ((x !== undefined) && (x !== null)){
-			s.startDate = s;
+			x.startDate = s;
 		}
 	}// starDate
-	@computedFrom('current_item.endDate')
 	get endDate(){
 		let x = this.current_item;
 		return ((x !== undefined) && (x !== nulll)) ? x.endDate : null;
@@ -26,7 +24,7 @@ export class IntervalBase extends DepSigleNameBase {
 	set endDate(s){
 		let  x = this.current_item;
 		if ((x !== undefined) && (x !== null)){
-			s.endDate = s;
+			x.endDate = s;
 		}
 	}// endDate
 }// class IntervalBase

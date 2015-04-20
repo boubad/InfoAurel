@@ -1,12 +1,12 @@
-// itembase.js
+// pagedviewmodel.js
+//
 import {computedFrom} from 'aurelia-framework';
-import {Promise} from 'bluebird';
 //
-import {BaseElement} from '../resources/baseelement';
+import {BaseModel} from '../basemodel';
 //
-export class ItemBase extends BaseElement {
-	constructor(eventAggregator,dataService,userInfo,model){
-		super(eventAggregator,dataService,userInfo);
+export class PagedViewModel extends BaseModel {
+	constructor(dataService, userInfo,Validation,ValidationConfig,model){
+		super(dataService, userInfo,Validation,ValidationConfig);
 		this.modelItem = model;
 		this.add_mode = false;
 		this.old_elem = null;
@@ -21,8 +21,10 @@ export class ItemBase extends BaseElement {
 		this.skip = 0;
 		this.canNextPage = false;
 		this.canPrevPage = false;
+    this.hasAvatars = false;
 	}// constructor
 	activate() {
+    this.update_title();
     if (this.elements.length < 1){
 			this.refreshAll();
 		}
@@ -72,21 +74,18 @@ export class ItemBase extends BaseElement {
     this.change_current();
   }
 	create_start_key(){
-		return [];
+		return this.modelItem.start_key;
 	}
   @computedFrom('elements')
   get hasElements(){
     return ((this.elements !== null) && (this.elements.length > 0));
   }
-	@computedFrom('add_mode')
 	get canAdd(){
 		return (!this.add_mode);
 	}
-	@computedFrom('add_mode')
 	get canCancel() {
 		return this.add_mode;
 	}
-	@computedFrom('current_element')
 	get canRemove(){
 		let x = this.current_element;
 		return ((x !== null) && (x.id !== undefined) && (x.rev !== undefined) &&
@@ -109,7 +108,6 @@ export class ItemBase extends BaseElement {
 		});
 		}
 	}// remove
-	@computedFrom('current_item.is_storeable')
 	get canSave(){
 		let x = this.current_item;
 		return (x !== null) && (x.is_storeable !== undefined) && (x.is_storeable == true);
@@ -174,7 +172,6 @@ export class ItemBase extends BaseElement {
     let limit  = this.itemsPerPage;
     let skip = this.skip;
     let startKey = this.start_key;
-    let first
     if (startKey === null){
       startKey = this.create_start_key();
     }
@@ -190,7 +187,11 @@ export class ItemBase extends BaseElement {
     return this.dataService.find_elements_range(model.index_name,startKey,
     	endKey, skip,limit,
     descending,bIncludeEnd,bDoc,bAttach).then((rr)=>{
-      return self.retrieve_avatars(rr);
+      if (self.hasAvatars){
+           return self.retrieve_avatars(rr);
+      } else {
+        return rr;
+      }
     }).then((dd)=>{
       if ((dd !== undefined) && (dd !== null)){
         self.prev_key = startKey;
@@ -250,4 +251,16 @@ export class ItemBase extends BaseElement {
   		this.refresh();
   	}
   }// prevPage
+  @computedFrom('prev_key','next_key')
+  get hasPages(){
+    return (this.next_key !== null) || (this.prev_key !== null);
+  }
+  @computedFrom('prev_key')
+  get canPrevPage(){
+    return (this.prev_key !== null);
+  }
+  @computedFrom('next_key')
+  get canNextPage(){
+    return (this.next_key !== null);
+  }
 }// class ItemBase

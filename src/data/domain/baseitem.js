@@ -30,6 +30,12 @@ export class BaseItem {
     get base_prefix() {
         return null;
     }
+    get start_key(){
+        return (this.base_prefix !== null) ? this.base_prefix + '-' : null;
+    }
+    get end_key(){
+        return (this.start_key !== null) ? this.start_key + '\uffff' : null;
+    }
     @computedFrom('collection_name')
     get index_name() {
         return (this.collection_name !== null) ?

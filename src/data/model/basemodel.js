@@ -5,12 +5,10 @@ import {
 from 'aurelia-framework';
 
 //
-import {BaseUserModel} from './baseusermodel';
-//
 const currentLocale = 'fr-FR';
 //
 export class BaseModel {
-  constructor(dataService, userInfo,Validation,ValidationConfig) {
+  constructor(dataService, userInfo,validation,validationConfig) {
       this.dataService = dataService;
       this.userInfo = userInfo;
       this.validation = validation;
@@ -22,6 +20,12 @@ export class BaseModel {
       this.dispose_func = null;
       this.menu = [];
     } // constructor
+    get personid(){
+      return this.userInfo.personid;
+    }
+    set personid(s){
+      this.userInfo.personid = s;
+    }
   update_title() {
     } // update_title
   update_menu() {

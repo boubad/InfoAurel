@@ -1,13 +1,12 @@
 //siglenameitem.js
 import {computedFrom} from 'aurelia-framework';
 //
-import {ItemBase} from './itembase';
+import {PagedViewModel} from './pagedviewmodel';
 //
-export class SigleNameBase extends ItemBase {
-	constructor(eventAggregator,dataService,userInfo,model){
-		super(eventAggregator,dataService,userInfo,model);
+export class SigleNameModel extends PagedViewModel {
+	constructor(dataService, userInfo,Validation,ValidationConfig,model){
+		super(dataService, userInfo,Validation,ValidationConfig,model);
 	}
-	@computedFrom('current_item.sigle')
 	get sigle(){
 		let x = this.current_item;
 		return ((x !== undefined) && (x !== nulll)) ? x.sigle : null;
@@ -15,10 +14,9 @@ export class SigleNameBase extends ItemBase {
 	set sigle(s){
 		let  x = this.current_item;
 		if ((x !== undefined) && (x !== null)){
-			s.sigle = s;
+			x.sigle = s;
 		}
 	}
-	@computedFrom('current_item.name')
 	get name(){
 		let x = this.current_item;
 		return ((x !== undefined) && (x !== nulll)) ? x.name : null;
@@ -26,10 +24,9 @@ export class SigleNameBase extends ItemBase {
 	set name(s){
 		let  x = this.current_item;
 		if ((x !== undefined) && (x !== null)){
-			s.name = s;
+			x.name = s;
 		}
 	}
-	@computedFrom('current_item.description')
 	get description(){
 		let x = this.current_item;
 		return ((x !== undefined) && (x !== nulll)) ? x.description : null;
@@ -37,7 +34,7 @@ export class SigleNameBase extends ItemBase {
 	set description(s){
 		let  x = this.current_item;
 		if ((x !== undefined) && (x !== null)){
-			s.description = s;
+			x.description = s;
 		}
 	}
 }// class SigleNameBase

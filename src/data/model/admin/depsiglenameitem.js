@@ -1,12 +1,11 @@
 //depsiglenameitem.js
 import {computedFrom} from 'aurelia-framework';
 //
-import {SigleNameBase} from './siglenameitem';
+import {SigleNameModel} from './siglenamebase';
 //
-export class DepSigleNameBase extends SigleNameBase {
-	constructor(eventAggregator,dataService,userInfo,model){
-		super(eventAggregator,dataService,userInfo,model);
-		this.parentid = null;
+export class DepSigleNameModel extends SigleNameModel {
+	constructor(dataService, userInfo,Validation,ValidationConfig,model){
+		super(dataService, userInfo,Validation,ValidationConfig,model);
 		this.departement = null;
 		this.base_title = null;
 	}// constructor
@@ -15,50 +14,46 @@ export class DepSigleNameBase extends SigleNameBase {
 		let id = ((info !== undefined) && (info !== null)) ? info.departementid : null;
 		this.departementid = id;
 	}// activate
-	@computedFrom('departement')
+	update_departement(){
+		 this.update_title();
+    if (this.elements.length < 1){
+			this.refreshAll();
+		}
+	}// update_departement
 	get departementid(){
-		return (this.departement !== null) ? this.departement.id : null;
+		return this.userInfo.departementid;
 	}
 	set departementid(s){
 		let id = ((s !== undefined) && (s !== null)) ? s : null;
+		this.modelItem.departementid = id;
+		this.userInfo.departementid = id;
 		if (id !== null){
 			let self = this;
 			this.dataService.get_item_by_id(id).then((dep) =>{
 				self.departement = ((dep !== undefined) && (dep !== null)) ? dep : null;
-				self.update_title();
-				self.userInfo.departementid = self.departementid;
+				self.update_departement();
 			},(err)=>{
 				self.departement = null;
-				self.userInfo.departementid = null;
-				self.update_title();
+				self.update_departement();
 			});
 		} else {
 			this.departement = null;
-			self.userInfo.departementid = null;
-			this.update_title();
+			self.update_departement();
 		}
 	}// departementid
 	create_item(){
-		let p = this.dataService.create_item({type:this.modelItem.type});
-		p.departementid = this.departementid;
-		p.anneeid = this.anneeid;
+		let p = this.dataService.create_item({type:this.modelItem.type,
+			departementid: this.departementid});
 		return p;
 	}// create_item
-	@computedFrom('departement')
 	get departement_name(){
 		return (this.departement !== null) ? this.departement.name : null;
 	}
-	@computedFrom('departement')
 	get departement_sigle(){
 		return (this.departement !== null) ? this.departement.sigle : null;
 	}
 	create_start_key(){
-		let sRet = this.modelItem.base_prefix;
-		let d = this.departementid;
-		if (d !== null){
-			sRet = sRet + '-' + d;
-		}
-		return sRet;
+		return this.modelItem.start_key;
 	}//create_start_key
 	update_title(){
 		let sRet = this.base_title;

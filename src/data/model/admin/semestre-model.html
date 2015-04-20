@@ -1,0 +1,58 @@
+<template>
+	<!-- ============================== -->
+	<h2>$(title)</h2>
+	<user-info dataservice.bind="dataService" userinfo.bind="userInfo" personid.bind="personid" 
+		isDepartement="true" isAnnee="true">
+	</user_info>
+	<h3 show.bind = "hasErrorMessage" class="text-danger">$(errorMessage)</h3>
+	<h3 show.bind = "hasInfoMessage" class="text-success">$(infoMessage)</h3>
+	<div class="row">
+		<div class="col-md-4" if.bind="hasElements">
+			<select value.bind="current_element" size.bind="itemsPerPage">
+				<option repeat.for="elem of elements" model.bind="elem">${elem.toString()}</option>
+			</select>
+			<div class="btn-group" show.bind="hasPages">
+				<button type="button" show.bind="canPrevPage" click.delegate="prevPage()" class="btn btn-primary">Pg. précédente</button>
+				<button type="button" show.bind="canNextPage" click.delegate="nextPage()" class="btn btn-primary">Pg. suivante</button>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div>
+				<button type="button" click.delegate="refreshAll()" class="btn btn-primary">Rafraîchir</button>
+			</div>
+			<form role="form" validation.bind="validation">
+				<input type="hidden" id="departementid" name="departementid" value.bind="departementid" />
+				<input type="hidden" id="anneeid" name="anneeid" value.bind="anneeid" />
+				<div class="form-group">
+					<label class="form-label" for="startDate">Date de début</label>
+					<input class="form-control" name="startDate" type="date" id="startDate" value.bind="startDate" 
+					  placeholder="Date de début" required></input>
+				</div>
+				<div class="form-group">
+					<label class="form-label" for="endDate">Date de fin</label>
+					<input class="form-control" name="endDate" type="date" id="endDate" value.bind="endDate" 
+					  placeholder="Date de fin" required></input>
+				</div>
+				<div class="form-group">
+					<label class="form-label" for="sigle">Abbréviation</label>
+					<input class="form-control" name="sigle" type="text" id="sigle" value.bind="sigle"
+					 placeholder="Abbréviation" required></input>
+				</div>
+				<div class="form-group">
+					<label class="form-label" for="name">Nom</label>
+					<input class="form-control" name="name" type="text" id="name" value.bind="name" placeholder="Nom"></input>
+				</div>
+				<div class="form-group">
+					<label class="form-label" for="description">Description</label>
+					<textarea class="form-control" name="description" id="description" value.bind="description"></textarea>
+				</div>
+				<div class="btn-group">
+                      <button type="button" show.bind="canAdd" click.delegate="addNew()" class="btn btn-primary">Nouveau</button>
+                      <button type="button" show.bind="canCancel" click.delegate="cancel()" class="btn btn-primary">Annuler</button>
+                      <button type="button" show.bind="canSave" click.delegate="save()" class="btn btn-primary">Enregistrer</button>
+                      <button type="button" show.bind="canRemove" click.delegate="remove()" class="btn btn-primary">Supprimer</button>
+                </div>
+			</form>
+		</div>
+	</div>
+</template>

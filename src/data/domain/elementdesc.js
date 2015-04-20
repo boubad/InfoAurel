@@ -1,5 +1,7 @@
 //elementdesc.js
 //
+import {computedFrom} from 'aurelia-framework';
+//
 export class ElementDesc  {
   //
   constructor(oMap?: any) {
@@ -39,6 +41,7 @@ export class ElementDesc  {
       }
     }// oMap
   }// constructor
+  @computedFrom('url')
   get hasUrl() {
     return ((this.url !== undefined) &&
       (this.url !== null) && (this.url.trim().length > 0));

@@ -20,6 +20,9 @@ export class HomeClass extends BaseModel {
 	get personid(){
 		return this.userInfo.personid;
 	}
+	set personid(s){
+		this.userInfo.personid = s;
+	}
 	get isConnected(){
 		return (this.personid !== null);
 	}
@@ -52,7 +55,7 @@ export class HomeClass extends BaseModel {
 		var userinfo = this.userInfo;
 		this.dataService.get_item_by_id(id).then((pPers)=>{
 			if ((pPers !== undefined) && (pPers !== null)){
-				self.dataModel.person = pPers;
+				self.userInfo.person = pPers;
 				let dummy = self.isConnected || self.isNotConnected;
 			} else {
 				self.errorMessage = 'Utilisateur inconnu...';

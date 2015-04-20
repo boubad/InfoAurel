@@ -7,11 +7,9 @@ import {Person} from '../domain/person';
 import {EtudiantPerson} from '../domain/etudperson';
 import {ProfPerson} from '../domain/profperson';
 //
-@singleton()
 export class UserInfo extends SessionObjectStore {
   constructor() {
     super();
-    this.dataService = dataService;
     this._person = null;
   }// constructor
   get description() {
@@ -149,6 +147,7 @@ export class UserInfo extends SessionObjectStore {
   }
   set person(pPers) {
       let p = (pPers !== undefined) ? pPers : null;
+    this.store_value('person',null);
     this.photoUrl = null;
     this._person = null;
     this.personid = null;
@@ -166,6 +165,8 @@ export class UserInfo extends SessionObjectStore {
     this.email = null;
     this.phone = null;
     this.description = null;
+    //
+    //
     if ((p !== null) && (p.id !== null)) {
        let oMap  = {};
        p.to_map(oMap);
@@ -182,7 +183,8 @@ export class UserInfo extends SessionObjectStore {
       this.password = p.password;
       this.description = p.description;
   }
-  @computedFrom('person')
+}
+@computedFrom('person')
   get isConnected(){
     let p = this.person;
     return ((p !== undefined) && (p !== null) && (p.id !== undefined) && (p.id !== null));

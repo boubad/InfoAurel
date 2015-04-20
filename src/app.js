@@ -18,17 +18,7 @@ export class App {
       config.title = 'InfoApp';
       config.map([
         { route: ['','home'],  moduleId: HOME_ID,      nav: true, title:'Accueil' },
-        { route: 'admin-router',  moduleId: ADMIN_ID, nav: true, title:'Administration' },
-        { route: 'affetuds',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Affectation étudiants' },
-        { route: 'affprofs',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Affectations enseignants' },
-        { route: 'etudiants',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Etudiants' },
-        { route: 'semestre',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Semestres' },
-        { route: 'annees',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Années' },
-        { route: 'enseignants',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Enseignants' },
-        { route: 'groupes',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Groupes' },
-        { route: 'matieres',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Matières' },
-        { route: 'unites',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Unités' },
-        { route: 'departements',  moduleId: NOT_IMPLEMENTED, nav: false, title:'Départements' }
+        { route: 'admin-router',  moduleId: ADMIN_ID, nav: true, title:'Administration' }
       ]);
     });
   }
